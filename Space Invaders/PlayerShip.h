@@ -39,14 +39,18 @@ public:
 	virtual bool Initialise();
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
-
+	 
 	//virtual void SetX(float _f);
 
-	void setSpeed(float _fSpeed);
-	float getSpeed();
+	void SetSpeed(float _fSpeed);
+	float GetSpeed();
+
+	bool Fired();
+	void setFired(bool _bFired);
 
 protected:
 	float m_fSpeed;
+	bool m_bFired;
 private:
 	CPlayerShip(const CPlayerShip& _kr);
 	CPlayerShip& operator= (const CPlayerShip& _kr);

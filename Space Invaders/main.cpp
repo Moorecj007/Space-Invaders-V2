@@ -26,6 +26,7 @@
 #include "Utilities.h"
 #include "Level.h"
 #include "PlayerShip.h"
+#include "PlayerProjectile.h"
 #define WINDOW_CLASS_NAME L"SPACEINVADERS"
 
 
@@ -45,22 +46,28 @@ LRESULT CALLBACK WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lPa
 	{
 	case WM_KEYDOWN:
 	{
+		CPlayerShip* theShip = CGame::GetInstance().GetLevel()->GetPlayerShip();
+		CPlayerProjectile* thePojectile = &(CPlayerProjectile::GetInstance());
+		float fCurrentX = theShip->GetX();
+
 		switch(_wParam)
 		{
 			//changes 
 			case VK_LEFT:
 			{
-				CPlayerShip* theShip = CGame::GetInstance().GetLevel()->GetPlayerShip();
-				float currentX = theShip->GetX();
-
-				if(currentX <= ((theShip->GetWidth()/2) + 15 ))
+				
+				if(fCurrentX <= ((theShip->GetWidth()/2) + 15 ))
 				{
-					theShip->SetX(static_cast<float>(currentX));
-					
+					theShip->SetX(static_cast<float>(fCurrentX));
 				}
 				else
 				{
-					theShip->SetX(static_cast<float>(currentX - theShip->getSpeed() ));
+					theShip->SetX(static_cast<float>(fCurrentX - theShip->GetSpeed() ));
+				}
+				
+				if(thePojectile->GetY() >= theShip->GetY())
+				{
+					thePojectile->SetX(theShip->GetX());
 				}
 
 				return (0);
@@ -68,25 +75,31 @@ LRESULT CALLBACK WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lPa
 			break;
 			case VK_RIGHT:
 			{
-				CPlayerShip* theShip = CGame::GetInstance().GetLevel()->GetPlayerShip();
-				float currentX = theShip->GetX();
-
-				if(currentX > ( 672 - (theShip->GetWidth()/2)-20))//- (theShip->GetWidth())))
+				
+				if(fCurrentX > ( 672 - (theShip->GetWidth()/2)-20))//- (theShip->GetWidth())))
 				{
-					theShip->SetX(static_cast<float>(currentX ));
+					theShip->SetX(static_cast<float>(fCurrentX ));
+
 				}
 				else
 				{
-					theShip->SetX(static_cast<float>(currentX + theShip->getSpeed() ));
+					theShip->SetX(static_cast<float>(fCurrentX + theShip->GetSpeed() ));
 				}
-				//theShip->SetX(static_cast<float>(currentX + theShip->getSpeed() ));
+
+				if(thePojectile->GetY() >= theShip->GetY())
+				{
+					thePojectile->SetX(theShip->GetX());
+				}
 
 				return (0);
 			}
 			break;
 			case VK_SPACE:
 			{
-					
+				
+				theShip->setFired(true);
+				thePojectile->setFired(true);
+						          
 			}
 			break;
 		}

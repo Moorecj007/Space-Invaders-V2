@@ -85,6 +85,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerProjectile.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
@@ -96,6 +97,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
@@ -103,6 +105,30 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Space Invaders.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="MaskA_Alien1.bmp" />
+    <Image Include="MaskA_Alien2.bmp" />
+    <Image Include="MaskA_Alien3.bmp" />
+    <Image Include="MaskA_Bolt.bmp" />
+    <Image Include="MaskA_Cross.bmp" />
+    <Image Include="MaskA_MysShip.bmp" />
+    <Image Include="MaskB_Alien1.bmp" />
+    <Image Include="MaskB_Alien2.bmp" />
+    <Image Include="MaskB_Alien3.bmp" />
+    <Image Include="Mask_PlayerShip.bmp" />
+    <Image Include="Mask_Projectile.bmp" />
+    <Image Include="SpriteA_Alien1.bmp" />
+    <Image Include="SpriteA_Alien2.bmp" />
+    <Image Include="SpriteA_Alien3.bmp" />
+    <Image Include="SpriteA_Bolt.bmp" />
+    <Image Include="SpriteA_Cross.bmp" />
+    <Image Include="SpriteA_MysShip.bmp" />
+    <Image Include="SpriteB_Alien1.bmp" />
+    <Image Include="SpriteB_Alien2.bmp" />
+    <Image Include="SpriteB_Alien3.bmp" />
+    <Image Include="Sprite_PlayerShip.bmp" />
+    <Image Include="Sprite_Projectile.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

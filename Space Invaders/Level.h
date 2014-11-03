@@ -30,10 +30,12 @@
 #include "Utilities.h"
 #include "backbuffer.h"
 #include "PlayerShip.h"
+#include "PlayerProjectile.h"
 #include "AlienColumn.h"
 
 #include "Clock.h"
 
+//class CPlayerProjectile;
 class CPlayerShip;
 class CLevel
 {
@@ -46,7 +48,20 @@ public:
 	virtual void Process(float _fDeltaTick);
 
 	CPlayerShip* GetPlayerShip() const;
+
+	CPlayerProjectile* GetPlayerProjectile() const;
+
 	void AlienControl(float _fDeltaTick);
+
+	bool ProjectileCollisionCheck();
+	bool CLevel::AlienCollision();
+
+	void UpdatePlayerScore(float _fScore);
+	float GetPlayerScore();
+
+	void DrawScore();
+
+	void UpdateScoreText();
 
 protected:
 	//void ProcessCheckForWin();
@@ -65,12 +80,18 @@ private:
 
 protected:
 	CPlayerShip* m_pPlayerShip;
+	CPlayerProjectile* m_pProjectile;
 	vector<CAlienColumn*>* m_pAlienColumns;
-
+	
+	float m_fScore;
 	float m_fAlienSpeed;
 	float m_fTimeElapsed;
 	float m_fLastMove;
+	
 	bool m_bAlienDirection;
+	
+	std::string m_strScore;
+
 	HWND m_hWnd;
 };
 
