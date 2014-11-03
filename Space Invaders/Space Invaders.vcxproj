@@ -113,9 +113,6 @@
     <Image Include="MaskA_Bolt.bmp" />
     <Image Include="MaskA_Cross.bmp" />
     <Image Include="MaskA_MysShip.bmp" />
-    <Image Include="MaskB_Alien1.bmp" />
-    <Image Include="MaskB_Alien2.bmp" />
-    <Image Include="MaskB_Alien3.bmp" />
     <Image Include="Mask_PlayerShip.bmp" />
     <Image Include="Mask_Projectile.bmp" />
     <Image Include="SpriteA_Alien1.bmp" />
@@ -124,9 +121,6 @@
     <Image Include="SpriteA_Bolt.bmp" />
     <Image Include="SpriteA_Cross.bmp" />
     <Image Include="SpriteA_MysShip.bmp" />
-    <Image Include="SpriteB_Alien1.bmp" />
-    <Image Include="SpriteB_Alien2.bmp" />
-    <Image Include="SpriteB_Alien3.bmp" />
     <Image Include="Sprite_PlayerShip.bmp" />
     <Image Include="Sprite_Projectile.bmp" />
   </ItemGroup>

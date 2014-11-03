@@ -141,23 +141,5 @@
     <Image Include="Sprite_PlayerShip.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="MaskB_Alien1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskB_Alien2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskB_Alien3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteB_Alien1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteB_Alien2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteB_Alien3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>
