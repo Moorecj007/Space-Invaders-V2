@@ -191,7 +191,7 @@ void CAlienColumn::ToggleAnimation()
 bool CAlienColumn::BelowLoseThreshold()
 {
 	// Find the lowest Alien in the column that is still alive
-	for( unsigned int i = (m_vecpAliens->size() - 1); i >= 0 ; i--)
+	for( int i = static_cast<int>(m_vecpAliens->size() - 1); i >= 0 ; i--)
 	{
 		if( (*m_vecpAliens)[i]->IsAlive())
 		{

@@ -24,7 +24,7 @@ CPlayerProjectile* CPlayerProjectile::s_pProjectile = 0;
 * @author: Jc Fowles
 * @return: void
 ********************/
-CPlayerProjectile::CPlayerProjectile(void) : m_fSpeed(15)
+CPlayerProjectile::CPlayerProjectile(void) : m_fSpeed(25)
 {
 	m_fTimeElapsed = 0;
 	m_fLastMove = 0;

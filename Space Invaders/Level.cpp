@@ -82,11 +82,11 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	// Alien Wave Setup constants
 	const int kiNumAlienColumns = 11;
 	const int kiStartX = 50;
-	const int kiStartY = 350;
+	const int kiStartY = 200;
 	const int kiGap = 13;
 
 	// Values to Set up each Alien Column with
-	m_fAlienSpeed = 01.0f;
+	m_fAlienSpeed = 0.25f;
 
 	float fCurrentX = kiStartX;
 	float fCurrentY = kiStartY;
@@ -145,20 +145,28 @@ void CLevel::Process(float _fDeltaTick)
 	}
 	
 	m_pPlayerShip->Process(_fDeltaTick);
-	
+
 	if(ProjectileCollisionCheck())
 	{
 		m_pProjectile->SetY(m_pPlayerShip->GetY()+1);
 		m_pProjectile->SetX(m_pPlayerShip->GetX());
 		m_pProjectile->Process(_fDeltaTick);
 	}
-
-	AlienControl(_fDeltaTick);
+   
+  	AlienControl(_fDeltaTick);
 	// Process all the Alien Columns
 	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
 	{
 		((*m_pAlienColumns)[i])->Process(_fDeltaTick);
 	}
+	
+	/*
+	if(ProjectileCollisionCheck())
+	{
+		m_pProjectile->SetY(m_pPlayerShip->GetY()+1);
+		m_pProjectile->SetX(m_pPlayerShip->GetX());
+		m_pProjectile->Process(_fDeltaTick);
+	}*/
 }
 
 /***********************
@@ -238,13 +246,15 @@ bool CLevel::AlienCollision()
 				float fAlienH = (*Aliens)[k]->GetHeight();			//Current Aliens Height
 				float fAlienW = (*Aliens)[k]->GetWidth();			//Current Aliens Width
 
+
+
 				//Check if overlapping
-				if ((fProjectileX + fProjectileR > fAlienX - fAlienW / 2) &&			
-					(fProjectileX - fProjectileR < fAlienX + fAlienW / 2) &&
-					(fProjectileY + fProjectileR > fAlienY - fAlienH / 2) &&
-					(fProjectileY - fProjectileR < fAlienY + fAlienH / 2))
+				if ((fProjectileX  > fAlienX - fAlienW / 2) &&		//+ fProjectileR	
+					(fProjectileX  < fAlienX + fAlienW / 2) &&		//- fProjectileR
+					(fProjectileY  > fAlienY - fAlienH / 2) &&      //+ fProjectileR    // changes
+					(fProjectileY  < fAlienY + fAlienH / 2))		//- fProjectileR	//chagnes
 				{
-					(*Aliens)[k]->SetAlive(false);
+  					(*Aliens)[k]->SetAlive(false);
 					return true;
 				}
 			}
@@ -318,14 +328,14 @@ void CLevel::AlienControl(float _fDeltaTick)
 	{
 		if( m_bAlienDirection == RIGHT)
 		{
-			for( unsigned int i = (m_pAlienColumns->size() - 1); i >= 0; i--)
+			for( int i = static_cast<int>(m_pAlienColumns->size() - 1); i >= 0; i--)
 			{
 				if( (*m_pAlienColumns)[i]->IsAlive())
 				{
 					vector<CAlien*>* pRightMostColumn = ((*m_pAlienColumns)[i]->GetAliens());
 					for( unsigned int j = 0; j < pRightMostColumn->size(); j++)
 					{
-						if( (*pRightMostColumn)[j]->IsAlive())
+						if( (*pRightMostColumn)[j]->IsAlive()) 
 						{
 							float fRightMostAlienX = (*pRightMostColumn)[j]->GetX();   
 							float fRightMostAlienWidth = (*pRightMostColumn)[j]->GetWidth();
