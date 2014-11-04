@@ -55,3 +55,4 @@ Ankh.NoLoad
 *.exe
 *.out
 *.app
+*.suo
