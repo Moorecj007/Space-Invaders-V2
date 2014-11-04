@@ -12,10 +12,6 @@
 * Mail :	Callan.moore@mediadesign.school.nz	
 */
 
-// Local Includes
-#include "resource.h"
-#include "Utilities.h"
-
 // This Includes
 #include "Alien.h"
 
@@ -68,12 +64,7 @@ bool CAlien::Initialise(int _iType)
 			m_iPointValue = 40;
 		}
 		break;
-	default:	// Any other value creates Load Error Sprite
-		{
-			// m_iMaskID = IDB_MASK_LOADERROR;
-			// m_iSpriteID = IDB_SPRITE_LOADERROR;
-			// m_iPointValue = 0;
-		}
+	default: {}
 	} // End Switch
 
 	VALIDATE(CEntity::Initialise(m_iSpriteID, m_iMaskID, m_iNumFrames));
@@ -169,15 +160,6 @@ void CAlien::MoveDown()
 ********************/
 void CAlien::ToggleAnimation()
 {
-	/*if( (*CEntity::m_pSprite).GetFrame() == 0)
-	{
-		(*CEntity::m_pSprite).SetFrame(1);
-	}
-	else
-	{
-		(*CEntity::m_pSprite).SetFrame(0);
-	}*/
-
 	(*CEntity::m_pSprite).SetFrame( ((*CEntity::m_pSprite).GetFrame() + 1) % m_iNumFrames);
 }
 

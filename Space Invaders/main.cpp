@@ -19,6 +19,7 @@
 //Library Includes
 #include <windows.h>
 #include <windowsx.h>
+#include <time.h>
 
 //Local Includes
 #include "Game.h"
@@ -165,6 +166,8 @@ HWND CreateAndRegisterWindow(HINSTANCE _hInstance, int _iWidth, int _iHeight, LP
 ********************/
 int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdline, int _iCmdshow)
 {
+	srand( static_cast<unsigned int>(time(NULL)));
+
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 	const int kiWidth = 672;

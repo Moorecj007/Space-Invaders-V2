@@ -31,6 +31,7 @@
 #include "backbuffer.h"
 #include "PlayerShip.h"
 #include "AlienColumn.h"
+#include "MysteryShip.h"
 
 #include "Clock.h"
 
@@ -46,7 +47,15 @@ public:
 	virtual void Process(float _fDeltaTick);
 
 	CPlayerShip* GetPlayerShip() const;
+<<<<<<< HEAD
 	void AlienControl(float _fDeltaTick);
+=======
+
+	CPlayerProjectile* GetPlayerProjectile() const;
+
+	void AlienControl();
+	bool MysteryShipControl(float _fDeltaTick);
+>>>>>>> origin/Moore
 
 protected:
 	//void ProcessCheckForWin();
@@ -66,10 +75,22 @@ private:
 protected:
 	CPlayerShip* m_pPlayerShip;
 	vector<CAlienColumn*>* m_pAlienColumns;
+<<<<<<< HEAD
 
 	float m_fAlienSpeed;
 	float m_fTimeElapsed;
 	float m_fLastMove;
+=======
+	CMysteryShip* m_pMysteryShip;
+	
+	float m_fScore;
+	float m_fAlienSpeed;
+	float m_fTimeElapsed;
+	float m_fAlienLastMove;
+	float m_fMysteryShipLastMove;
+	float m_fMysteryShipSpeed;
+	
+>>>>>>> origin/Moore
 	bool m_bAlienDirection;
 	HWND m_hWnd;
 };
