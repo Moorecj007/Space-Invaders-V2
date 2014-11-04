@@ -32,6 +32,7 @@
 #include "PlayerShip.h"
 #include "PlayerProjectile.h"
 #include "AlienColumn.h"
+#include "MysteryShip.h"
 
 #include "Clock.h"
 
@@ -51,7 +52,8 @@ public:
 
 	CPlayerProjectile* GetPlayerProjectile() const;
 
-	void AlienControl(float _fDeltaTick);
+	void AlienControl();
+	bool MysteryShipControl(float _fDeltaTick);
 
 	bool ProjectileCollisionCheck();
 	bool CLevel::AlienCollision();
@@ -82,11 +84,14 @@ protected:
 	CPlayerShip* m_pPlayerShip;
 	CPlayerProjectile* m_pProjectile;
 	vector<CAlienColumn*>* m_pAlienColumns;
+	CMysteryShip* m_pMysteryShip;
 	
 	float m_fScore;
 	float m_fAlienSpeed;
 	float m_fTimeElapsed;
-	float m_fLastMove;
+	float m_fAlienLastMove;
+	float m_fMysteryShipLastMove;
+	float m_fMysteryShipSpeed;
 	
 	bool m_bAlienDirection;
 	

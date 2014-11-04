@@ -30,7 +30,8 @@ CLevel::CLevel()
 	m_pAlienColumns = new vector<CAlienColumn*>;
 
 	m_fTimeElapsed = 0;
-	m_fLastMove = 0;
+	m_fAlienLastMove = 0;
+	m_fMysteryShipLastMove = 0;
 	m_bAlienDirection = RIGHT;
 	m_fScore = 0;
 	m_strScore = "Bricks Remaining: ";
@@ -83,7 +84,7 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	const int kiNumAlienColumns = 11;
 	const int kiStartX = 50;
 	const int kiStartY = 200;
-	const int kiGap = 13;
+	const int kiGap = 15;
 
 	// Values to Set up each Alien Column with
 	m_fAlienSpeed = 0.25f;
@@ -102,6 +103,10 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 
 		fCurrentX += (fColumnWidth + kiGap);
 	}
+
+	// Mystery Ship Variable initialisations
+	m_pMysteryShip = 0;
+	m_fMysteryShipSpeed = 0.1f;
 
 	return true;
 }
@@ -124,6 +129,11 @@ void CLevel::Draw()
 	}
 
 	DrawScore();
+
+	if( m_pMysteryShip != 0)
+	{
+		m_pMysteryShip->Draw();
+	}
 	//draw all things 
 }
 
@@ -136,6 +146,8 @@ void CLevel::Draw()
 ********************/
 void CLevel::Process(float _fDeltaTick)
 {
+	m_fTimeElapsed += _fDeltaTick;
+
 	if(m_pPlayerShip->Fired()) 
 	{
 		for(int i = 0; i < m_pProjectile->GetSpeed() ; i++)
@@ -153,20 +165,15 @@ void CLevel::Process(float _fDeltaTick)
 		m_pProjectile->Process(_fDeltaTick);
 	}
    
-  	AlienControl(_fDeltaTick);
+  	AlienControl();
 	// Process all the Alien Columns
 	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
 	{
 		((*m_pAlienColumns)[i])->Process(_fDeltaTick);
 	}
 	
-	/*
-	if(ProjectileCollisionCheck())
-	{
-		m_pProjectile->SetY(m_pPlayerShip->GetY()+1);
-		m_pProjectile->SetX(m_pPlayerShip->GetX());
-		m_pProjectile->Process(_fDeltaTick);
-	}*/
+	MysteryShipControl(_fDeltaTick);
+
 }
 
 /***********************
@@ -315,16 +322,14 @@ void CLevel::DrawScore()
 /***********************
 * AlienControl: Controls the aliens movement and firing
 * @author: Callan Moore
-* @parameter: _fDeltaTick: The time elapsed during the last frame
 * @return: void
 ********************/
-void CLevel::AlienControl(float _fDeltaTick)
+void CLevel::AlienControl()
 {
-	m_fTimeElapsed += _fDeltaTick;
 	bool bMoveDown = false;
 
 	// Moves the Alien Columns once the fAlienSpeed ( in seconds) has passed since they were last moved
-	if( (m_fTimeElapsed - m_fLastMove) > m_fAlienSpeed)
+	if( (m_fTimeElapsed - m_fAlienLastMove) > m_fAlienSpeed)
 	{
 		if( m_bAlienDirection == RIGHT)
 		{
@@ -402,6 +407,37 @@ void CLevel::AlienControl(float _fDeltaTick)
 			// Fire
 			// Place FIRE STUFF HERE
 		}
-		m_fLastMove = m_fTimeElapsed;
+		m_fAlienLastMove = m_fTimeElapsed;
 	}
+}
+
+/***********************
+* MysteryShipControl: Controls the MysteryShip Movement
+* @author: Callan Moore
+* @parameter: _fDeltaTick: The time elapsed during the last frame
+* @return: bool: Always return true
+********************/
+bool CLevel::MysteryShipControl(float _fDeltaTick)
+{
+	if( m_pMysteryShip == 0)
+	{
+		int iRandomNumber = rand() % 10000;
+		if( iRandomNumber < 10)
+		{
+			m_pMysteryShip = new CMysteryShip;
+			VALIDATE(m_pMysteryShip->Initialise());
+		}
+	}
+	else
+	{
+		if( (m_fTimeElapsed - m_fMysteryShipLastMove) > m_fMysteryShipSpeed)
+		{
+			m_pMysteryShip->Move();
+			m_fMysteryShipLastMove = m_fTimeElapsed;
+		}
+
+		m_pMysteryShip->Process(_fDeltaTick);
+	}
+
+	return (true);
 }
