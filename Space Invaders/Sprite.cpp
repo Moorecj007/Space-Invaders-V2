@@ -90,7 +90,7 @@ bool CSprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID, int _iNum
 ********************/
 void CSprite::Draw()
 {
-	int iW = GetWidth() / m_iNumFrames;
+	int iW = GetWidth();
 	int iH = GetHeight();
 	int iX = m_iX - (iW / 2);
 	int iY = m_iY - (iH / 2);
@@ -115,11 +115,12 @@ void CSprite::Process(float _fDeltaTick)
 /***********************
 * GetWidth: Retrieves the width of the sprites bitmap image
 * @author: Asma Shakil
+* @author: Callan Moore
 * @return: int: Width of the sprites bitmap image
 ********************/
 int CSprite::GetWidth() const
 {
-	return (m_bitmapSprite.bmWidth);
+	return ((m_bitmapSprite.bmWidth) / m_iNumFrames);
 }
 
 /***********************

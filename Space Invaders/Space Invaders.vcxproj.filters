@@ -45,6 +45,9 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerProjectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.h">
@@ -80,10 +83,63 @@
     <ClInclude Include="Utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Space Invaders.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Mask_Projectile.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sprite_Projectile.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MaskA_Bolt.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MaskA_Cross.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpriteA_Bolt.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpriteA_Cross.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MaskA_Alien1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MaskA_Alien2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MaskA_Alien3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpriteA_Alien1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpriteA_Alien2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpriteA_Alien3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MaskA_MysShip.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpriteA_MysShip.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Mask_PlayerShip.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Sprite_PlayerShip.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
