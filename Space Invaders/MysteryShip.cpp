@@ -52,7 +52,7 @@ bool CMysteryShip::Initialise()
 
 	VALIDATE(CEntity::Initialise(m_iSpriteID, m_iMaskID, m_iNumFrames));
 
-	CEntity::SetX(50);
+	CEntity::SetX(-20);
 	CEntity::SetY(50);
 	return (true);
 }
@@ -85,5 +85,5 @@ void CMysteryShip::Process(float _fDeltaTick)
 ********************/
 void CMysteryShip::Move()
 {
-	
+	CEntity::m_fX += 10;
 }

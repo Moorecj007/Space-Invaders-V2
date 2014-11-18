@@ -35,6 +35,7 @@ CLevel::CLevel()
 	m_bAlienDirection = RIGHT;
 	m_fScore = 0;
 	m_strScore = "Bricks Remaining: ";
+
 }
 
 /***********************
@@ -107,6 +108,7 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	// Mystery Ship Variable initialisations
 	m_pMysteryShip = 0;
 	m_fMysteryShipSpeed = 0.1f;
+	m_fMysteryShipSpawnTimer = -10;
 
 	return true;
 }
@@ -335,16 +337,18 @@ void CLevel::AlienControl()
 		{
 			for( int i = static_cast<int>(m_pAlienColumns->size() - 1); i >= 0; i--)
 			{
+				// Find the left most column of aliens alive
 				if( (*m_pAlienColumns)[i]->IsAlive())
 				{
 					vector<CAlien*>* pRightMostColumn = ((*m_pAlienColumns)[i]->GetAliens());
 					for( unsigned int j = 0; j < pRightMostColumn->size(); j++)
 					{
 						if( (*pRightMostColumn)[j]->IsAlive()) 
-						{
+						{			
 							float fRightMostAlienX = (*pRightMostColumn)[j]->GetX();   
 							float fRightMostAlienWidth = (*pRightMostColumn)[j]->GetWidth();
 
+							// Check if the left most column has reached the screen border
 							if( (fRightMostAlienX + (fRightMostAlienWidth / 2) + 25) > 672)
 							{
 								m_bAlienDirection = LEFT;
@@ -361,6 +365,7 @@ void CLevel::AlienControl()
 		{
 			for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
 			{
+				// Find the right most column of aliens alive
 				if( (*m_pAlienColumns)[i]->IsAlive())
 				{
 					vector<CAlien*>* pLeftMostColumn = ((*m_pAlienColumns)[i]->GetAliens());
@@ -371,6 +376,7 @@ void CLevel::AlienControl()
 							float fLeftMostAlienX = (*pLeftMostColumn)[j]->GetX();   
 							float fLeftMostAlienWidth = (*pLeftMostColumn)[j]->GetWidth();
 
+							// Check if the right most column has reached the screen border
 							if( (fLeftMostAlienX - (fLeftMostAlienWidth / 2) - 10) <= 0)
 							{
 								m_bAlienDirection = RIGHT;
@@ -419,24 +425,43 @@ void CLevel::AlienControl()
 ********************/
 bool CLevel::MysteryShipControl(float _fDeltaTick)
 {
+	// Random chance to spawn a mystery ship if NONE exist
 	if( m_pMysteryShip == 0)
 	{
-		int iRandomNumber = rand() % 10000;
-		if( iRandomNumber < 10)
+		// Check that the last death happened at least the spawn timer amount ago in seconds
+		if( m_fMysteryShipSpawnTimer > 0)
 		{
-			m_pMysteryShip = new CMysteryShip;
-			VALIDATE(m_pMysteryShip->Initialise());
+			int iRandomNumber = rand() % 10000;
+			if( iRandomNumber < 3)
+			{
+				m_pMysteryShip = new CMysteryShip;
+				VALIDATE(m_pMysteryShip->Initialise());
+			}
+		}
+		else
+		{
+			m_fMysteryShipSpawnTimer += _fDeltaTick;
 		}
 	}
 	else
 	{
+		// Move the Mystery ship if one exists
 		if( (m_fTimeElapsed - m_fMysteryShipLastMove) > m_fMysteryShipSpeed)
 		{
 			m_pMysteryShip->Move();
 			m_fMysteryShipLastMove = m_fTimeElapsed;
+			
 		}
 
 		m_pMysteryShip->Process(_fDeltaTick);
+
+		// Check if the mystery ship is off the screen and destroy it
+		if( m_pMysteryShip->GetX() > 672)
+		{
+			delete m_pMysteryShip;
+			m_pMysteryShip = 0;
+			m_fMysteryShipSpawnTimer = -10;
+		}
 	}
 
 	return (true);
