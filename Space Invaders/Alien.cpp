@@ -176,3 +176,13 @@ bool CAlien::BelowLoseThreshold()
 	}
 	return false;
 }
+
+/***********************
+* GetPoints: Retrieves the points to award the player with
+* @author: Callan Moore
+* @return: int: The points to award the player
+********************/
+int CAlien::GetPoints()
+{
+	return (m_iPointValue);
+}

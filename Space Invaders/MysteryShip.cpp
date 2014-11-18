@@ -87,3 +87,14 @@ void CMysteryShip::Move()
 {
 	CEntity::m_fX += 10;
 }
+
+/***********************
+* GetPoints: Retrieves the points to award the player with
+* @author: Callan Moore
+* @return: int: The points to award the player
+********************/
+int CMysteryShip::GetPoints()
+{
+	int iMultiplier = rand() % 6 + 1;
+	return ( iMultiplier * m_iBasePointValue);
+}

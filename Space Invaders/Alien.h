@@ -37,6 +37,7 @@ public:
 	void MoveDown();
 	void ToggleAnimation();
 	bool BelowLoseThreshold();
+	int GetPoints();
 
 private:
 	// Disallowing copies

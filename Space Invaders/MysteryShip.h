@@ -32,6 +32,7 @@ public:
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
 	void Move();
+	int GetPoints();
 
 
 	private:

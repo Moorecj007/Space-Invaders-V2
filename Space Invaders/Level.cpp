@@ -36,6 +36,8 @@ CLevel::CLevel()
 	m_fScore = 0;
 	m_strScore = "Bricks Remaining: ";
 
+	m_bLevelReset;
+
 }
 
 /***********************
@@ -175,7 +177,6 @@ void CLevel::Process(float _fDeltaTick)
 	}
 	
 	MysteryShipControl(_fDeltaTick);
-
 }
 
 /***********************

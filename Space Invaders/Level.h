@@ -93,6 +93,7 @@ protected:
 	float m_fMysteryShipLastMove;
 	float m_fMysteryShipSpeed;
 	float m_fMysteryShipSpawnTimer;
+	bool m_bLevelReset;
 	
 	bool m_bAlienDirection;
 	
