@@ -30,6 +30,60 @@
 #include "PlayerProjectile.h"
 #define WINDOW_CLASS_NAME "SPACEINVADERS"
 
+HINSTANCE g_hInstance;
+
+int g_iCmdshow;
+
+
+
+BOOL CALLBACK DialogProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch(uMsg)
+	{
+	
+	case WM_COMMAND :
+		switch(LOWORD(wParam))
+		{
+		case IDC_CANCEL:
+			{
+				SendMessage(hDlg, WM_DESTROY, 0,0);
+			}
+			break;
+		case IDC_APPLY:
+			{
+				if(MessageBox(hDlg, TEXT("Apply changes"), TEXT("Apply"),MB_ICONQUESTION | MB_YESNO) == IDYES)
+				{
+					//make changes here
+					SendMessage(hDlg, WM_DESTROY, 0,0);
+				}
+				else
+				{
+					SendMessage(hDlg, WM_DESTROY, 0,0);
+				}
+			}
+			break;
+		}
+		break;
+			
+		case WM_CLOSE:
+		{
+			SendMessage(hDlg, WM_DESTROY, 0,0);
+			return TRUE;
+		}
+		break;
+	case WM_DESTROY:
+		{
+			//PostQuitMessage(0);
+			EndDialog(hDlg, 0);
+			//CloseWindow(hDlg);
+		}
+	
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 
 /***********************
 * WindowProc: Process the window 
@@ -43,8 +97,27 @@
 ********************/
 LRESULT CALLBACK WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lParam)
 {
+	
+	//HWND hDlg = CreateDialogParam(g_hInstance, MAKEINTRESOURCE(IDD_DEBUG), _hWnd, DialogProc, 0);
+	
 	switch (_uiMsg)
 	{
+		case WM_KEYDOWN:
+	{
+		switch(_wParam)
+		{
+			case VK_ESCAPE:
+			{
+				//HWND hDlg =
+				DialogBox(g_hInstance, MAKEINTRESOURCE(IDD_DEBUG), _hWnd, DialogProc);
+				//ShowWindow(hDlg, g_iCmdshow);
+				
+				
+			}
+			break;
+		}
+		break;
+	}
 	
 	case WM_DESTROY:
 		{
@@ -121,11 +194,18 @@ int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdl
 {
 	srand( static_cast<unsigned int>(time(NULL)));
 
+	g_hInstance = _hInstance;
+	g_iCmdshow = _iCmdshow;
+
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
 	const int kiWidth = 672;
 	const int kiHeight = 768;
 	HWND hwnd = CreateAndRegisterWindow(_hInstance, kiWidth, kiHeight, "Space Invaders");
+
+	
+	
+
 	CGame& rGame = CGame::GetInstance();
 
 	if (!rGame.Initialise(_hInstance, hwnd, kiWidth, kiHeight))
