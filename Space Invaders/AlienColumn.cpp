@@ -49,7 +49,7 @@ CAlienColumn::~CAlienColumn(void)
 * @author: Callan Moore
 * @parameter: _fX: The X coordinate that the column starts at
 * @parameter: _fY: The Y coordinate that the top of the column starts at
-* @return: bool: Always returns true
+* @return: bool: Return true if successful
 ********************/
 bool CAlienColumn::Initialise(float _fX, float _fY)
 {

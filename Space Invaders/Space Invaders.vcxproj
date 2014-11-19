@@ -80,6 +80,7 @@
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="AlienColumn.cpp" />
     <ClCompile Include="Backbuffer.cpp" />
+    <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Alien.h" />
     <ClInclude Include="AlienColumn.h" />
     <ClInclude Include="Backbuffer.h" />
+    <ClInclude Include="Barrier.h" />
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
@@ -125,6 +127,32 @@
     <Image Include="SpriteA_MysShip.bmp" />
     <Image Include="Sprite_PlayerShip.bmp" />
     <Image Include="Sprite_Projectile.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\MaskA_Alien1.bmp" />
+    <None Include="Assets\MaskA_Alien2.bmp" />
+    <None Include="Assets\MaskA_Alien3.bmp" />
+    <None Include="Assets\MaskA_Bolt.bmp" />
+    <None Include="Assets\MaskA_Cross.bmp" />
+    <None Include="Assets\MaskA_MysShip.bmp" />
+    <None Include="Assets\Mask_Barrier.bmp" />
+    <None Include="Assets\Mask_PlayerShip.bmp" />
+    <None Include="Assets\Mask_Projectile.bmp" />
+    <None Include="Assets\SpriteA_Alien1.bmp" />
+    <None Include="Assets\SpriteA_Alien2.bmp" />
+    <None Include="Assets\SpriteA_Alien3.bmp" />
+    <None Include="Assets\SpriteA_Bolt.bmp" />
+    <None Include="Assets\SpriteA_Cross.bmp" />
+    <None Include="Assets\SpriteA_MysShip.bmp" />
+    <None Include="Assets\Sprite_Barrier.bmp" />
+    <None Include="Assets\Sprite_PlayerShip.bmp" />
+    <None Include="Assets\Sprite_Projectile.bmp" />
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 1.bmp" />
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 2.bmp" />
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 3.bmp" />
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 4.bmp" />
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 5.bmp" />
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 6.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
