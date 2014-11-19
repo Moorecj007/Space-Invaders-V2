@@ -347,19 +347,21 @@ int CLevel::GetPlayerScore()
 	return m_iScore;
 }
 
-
+/***********************
+* DrawScore: Draws the score to the buffer
+* @author: Jc Fowles
+* @return: void
+********************/
 void CLevel::DrawScore()
 {
 	 HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
-	 // SetTextColor(hdc, COLORREF(0x00FFFFFFFF));
+	
 	SetTextColor(hdc, RGB(255,0,0));
 	const int kiX = 0;
-    const int kiY = static_cast<int>(m_iHeight - 80);// m_iHeight- 10;
+    const int kiY = static_cast<int>(m_iHeight - 80);
    
 	UpdateScoreText();
-	//m_strScore  = "Score: ";
-	//m_strScore.c_str();
-	
+		
 	TextOut(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
 
