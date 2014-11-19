@@ -28,7 +28,7 @@
 #include "Level.h"
 #include "PlayerShip.h"
 #include "PlayerProjectile.h"
-#define WINDOW_CLASS_NAME L"SPACEINVADERS"
+#define WINDOW_CLASS_NAME "SPACEINVADERS"
 
 
 /***********************
@@ -45,67 +45,7 @@ LRESULT CALLBACK WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lPa
 {
 	switch (_uiMsg)
 	{
-	//case WM_KEYDOWN:
-	//{
-	//	CPlayerShip* theShip = CGame::GetInstance().GetLevel()->GetPlayerShip();
-	//	CPlayerProjectile* thePojectile = &(CPlayerProjectile::GetInstance());
-	//	float fCurrentX = theShip->GetX();
-
-	//	switch(_wParam)
-	//	{
-	//		//changes 
-	//		case VK_LEFT:
-	//		{
-	//			
-	//			if(fCurrentX <= ((theShip->GetWidth()/2) + 15 ))
-	//			{
-	//				theShip->SetX(static_cast<float>(fCurrentX));
-	//			}
-	//			else
-	//			{
-	//				theShip->SetX(static_cast<float>(fCurrentX - theShip->GetSpeed() ));
-	//			}
-	//			
-	//			if(thePojectile->GetY() >= theShip->GetY())
-	//			{
-	//				thePojectile->SetX(theShip->GetX());
-	//			}
-
-	//			return (0);
-	//		}
-	//		break;
-	//		case VK_RIGHT:
-	//		{
-	//			
-	//			if(fCurrentX > ( 672 - (theShip->GetWidth()/2)-20))//- (theShip->GetWidth())))
-	//			{
-	//				theShip->SetX(static_cast<float>(fCurrentX ));
-
-	//			}
-	//			else
-	//			{
-	//				theShip->SetX(static_cast<float>(fCurrentX + theShip->GetSpeed() ));
-	//			}
-
-	//			if(thePojectile->GetY() >= theShip->GetY())
-	//			{
-	//				thePojectile->SetX(theShip->GetX());
-	//			}
-
-	//			return (0);
-	//		}
-	//		break;
-	//		case VK_SPACE:
-	//		{
-	//			
-	//			theShip->setFired(true);
-	//			thePojectile->setFired(true);
-	//					          
-	//		}
-	//		break;
-	//	}
-	//}
-	break;
+	
 	case WM_DESTROY:
 		{
 			PostQuitMessage(0);
@@ -126,7 +66,7 @@ LRESULT CALLBACK WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lPa
 * @Parameter: _pcTitle: Title of the window
 * @return: HWND: Handle to the window
 ********************/
-HWND CreateAndRegisterWindow(HINSTANCE _hInstance, int _iWidth, int _iHeight, LPCWSTR _pcTitle)
+HWND CreateAndRegisterWindow(HINSTANCE _hInstance, int _iWidth, int _iHeight, LPCSTR _pcTitle)
 {
 	WNDCLASSEX winclass;
 	winclass.cbSize = sizeof(WNDCLASSEX);
@@ -185,7 +125,7 @@ int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdl
 	ZeroMemory(&msg, sizeof(MSG));
 	const int kiWidth = 672;
 	const int kiHeight = 768;
-	HWND hwnd = CreateAndRegisterWindow(_hInstance, kiWidth, kiHeight, L"Space Invaders");
+	HWND hwnd = CreateAndRegisterWindow(_hInstance, kiWidth, kiHeight, "Space Invaders");
 	CGame& rGame = CGame::GetInstance();
 
 	if (!rGame.Initialise(_hInstance, hwnd, kiWidth, kiHeight))

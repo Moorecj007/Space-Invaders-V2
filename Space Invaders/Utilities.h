@@ -23,6 +23,8 @@
 
 // Library Includes
 #include <strstream>
+#include <tchar.h>
+#include <string>
 
 // Macros
 	// Check to see if "a" exists 

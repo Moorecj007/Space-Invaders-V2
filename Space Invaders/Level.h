@@ -23,7 +23,7 @@
 #include <vector>
 #include <string>
 #include <locale>
-#include <codecvt>
+//#include <codecvt>
 
 // Local Includes
 #include "Game.h"
@@ -91,19 +91,20 @@ protected:
 	
 	float m_fPlayerShipSpeed;
 	float m_fProjectileSpeed;
+	float m_fAlienSpeed;
+	float m_fMysteryShipSpeed;
 
 	int m_iScore;
-	float m_fAlienSpeed;
 	float m_fTimeElapsed;
 	float m_fAlienLastMove;
 	float m_fMysteryShipLastMove;
-	float m_fMysteryShipSpeed;
 	float m_fMysteryShipSpawnTimer;
 	bool m_bLevelReset;
 	
 	bool m_bAlienDirection;
 	
-	std::string m_strScore;
+	string m_strScore;
+	//WCHAR* m_strScore;
 
 	HWND m_hWnd;
 };

@@ -37,7 +37,6 @@ CLevel::CLevel()
 	m_fMysteryShipLastMove = 0;
 	m_bAlienDirection = RIGHT;
 	m_iScore = 0;
-	m_strScore = "Bricks Remaining: ";
 
 	m_bLevelReset;
 
@@ -136,12 +135,14 @@ void CLevel::Draw()
 		((*m_pAlienColumns)[i])->Draw();
 	}
 
-	DrawScore();
+	//DrawScore();
 
 	if( m_pMysteryShip != 0)
 	{
 		m_pMysteryShip->Draw();
 	}
+
+	DrawScore();
 	//draw all things 
 }
 
@@ -331,9 +332,9 @@ void CLevel::UpdatePlayerScore(int _iScore)
 ********************/
 void CLevel::UpdateScoreText()
 {
-    m_strScore = "Bricks Remaining: ";
+    m_strScore = "Score: ";
 
-    m_strScore += ToString(GetPlayerScore());
+	m_strScore += ToString(GetPlayerScore());
 }
 
 /***********************
@@ -349,16 +350,17 @@ int CLevel::GetPlayerScore()
 
 void CLevel::DrawScore()
 {
-	  HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
+	 HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
 	 // SetTextColor(hdc, COLORREF(0x00FFFFFFFF));
-    const int kiX = 0;
+	SetTextColor(hdc, RGB(255,0,0));
+	const int kiX = 0;
     const int kiY = static_cast<int>(m_iHeight - 80);// m_iHeight- 10;
    
-
+	UpdateScoreText();
+	//m_strScore  = "Score: ";
 	//m_strScore.c_str();
 	
-
-    TextOut(hdc, kiX, kiY, (LPCWSTR)m_strScore.c_str(), static_cast<int>(m_strScore.size()));
+	TextOut(hdc, kiX, kiY, m_strScore.c_str(), static_cast<int>(m_strScore.size()));
 }
 
 /***********************
@@ -446,7 +448,7 @@ void CLevel::AlienControl()
 			// Check each column for having an Alien below Lose threshold
 			if( ((*m_pAlienColumns)[i])->BelowLoseThreshold())
 			{
-				MessageBox( m_hWnd, L"YOU LOSE", L"LOSER", MB_OK);
+				MessageBox( m_hWnd, "YOU LOSE", "LOSER", MB_OK);
 				break;
 			}
 
