@@ -38,8 +38,12 @@ CLevel::CLevel()
 	m_bAlienDirection = RIGHT;
 	m_iScore = 0;
 
-	m_bLevelReset;
-
+	// Alien Wave Setup constants
+	m_iNumAlienColumns = 11;
+	m_fStartX = 50;
+	m_fStartY = 200;
+	m_iXGap = 15;
+	m_fColumnWidth = 35;
 }
 
 /***********************
@@ -86,28 +90,21 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_pProjectile->SetX(_iWidth/2.0f);  // from the left
 	m_pProjectile->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
-	// Alien Wave Setup constants
-	const int kiNumAlienColumns = 11;
-	const int kiStartX = 50;
-	const int kiStartY = 200;
-	const int kiGap = 15;
-
 	// Values to Set up each Alien Column with
 	m_fAlienSpeed = 0.25f;
 
-	float fCurrentX = kiStartX;
-	float fCurrentY = kiStartY;
+	float fCurrentX = m_fStartX;
+	float fCurrentY = m_fStartY;
 	CAlienColumn* pTempAlienColumn = 0;
-	float fColumnWidth = 35;
 
 	// Create and push back AlienColumns into the vector of Columns
-	for( int i = 0; i < kiNumAlienColumns; i++)
+	for( int i = 0; i < m_iNumAlienColumns; i++)
 	{
 		pTempAlienColumn = new CAlienColumn;
 		VALIDATE(pTempAlienColumn->Initialise(fCurrentX, fCurrentY));
 		m_pAlienColumns->push_back(pTempAlienColumn);
 
-		fCurrentX += (fColumnWidth + kiGap);
+		fCurrentX += (m_fColumnWidth + m_iXGap);
 	}
 
 	// Mystery Ship Variable initialisations
@@ -174,13 +171,29 @@ void CLevel::Process(float _fDeltaTick)
 	
 	m_pPlayerShip->Process(_fDeltaTick);
 
-	if(ProjectileCollisionCheck())
+	if(ShipProjectileCollision())
 	{
 		m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
 		m_pProjectile->Process(_fDeltaTick);
 
 	}
- 
+
+	// Check if anyu column of aliens are still alive
+	m_bWaveReset = true;
+	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
+	{
+		if ( ((*m_pAlienColumns)[i])->IsAlive())
+		{
+			// if at least one column is still alive do not reset
+			m_bWaveReset = false;
+			break;
+		}
+	}
+
+	if( m_bWaveReset == true)
+	{
+		WaveReset();
+	}
 }
 
 /***********************
@@ -208,7 +221,7 @@ CPlayerProjectile* CLevel::GetPlayerProjectile() const
 * @author: Jc Fowles
 * @return: bool: true if collision detected
 ********************/
-bool CLevel::ProjectileCollisionCheck()
+bool CLevel::ShipProjectileCollision()
 {
 	int iPositionY = static_cast<int>(m_pProjectile->GetY());
 		
@@ -362,14 +375,10 @@ void CLevel::DrawScore()
 	 HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
 	
 	SetTextColor(hdc, RGB(255,0,0));
-<<<<<<< HEAD
-	const int kiX = 0;
-    const int kiY = static_cast<int>(m_iHeight - 80);
-=======
+
 	SetBkColor(hdc, RGB(0,0,0));
 	const int kiX = 333 - (10*(static_cast<int>(m_strScore.size()))/2);
     const int kiY = static_cast<int>(10);// m_iHeight- 10;
->>>>>>> origin/Fowles
    
 	UpdateScoreText();
 		
@@ -588,5 +597,39 @@ void CLevel::PlayerInput()
 	{
 		// Do nothing.
 	}
-	
+}
+
+/***********************
+* WaveReset: Resets the aliens to the beginning of the level alive
+* @author: Callan Moore
+* @return: void
+********************/
+void CLevel::WaveReset()
+{
+	float fCurrentX = m_fStartX;
+	float fCurrentY;
+	int iYGap = 16;
+	vector<CAlien*>* pTempAlienColumn = 0;
+	CAlien* pCurrentAlien = 0;
+
+	// Run through all columns
+	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
+	{
+		pTempAlienColumn = ((*m_pAlienColumns)[i])->GetAliens();
+		fCurrentY = m_fStartY;
+
+		// Set each alien back to their starting position and set them alive
+		for( unsigned int j = 0; j < pTempAlienColumn->size(); j++)
+		{
+			pCurrentAlien = (*pTempAlienColumn)[j];
+			pCurrentAlien->SetAlive(true);
+
+			pCurrentAlien->SetX(fCurrentX);
+			pCurrentAlien->SetY(fCurrentY);
+
+			fCurrentY += (pCurrentAlien->GetHeight() + iYGap);
+		}
+		fCurrentX += (m_fColumnWidth + m_iXGap);
+	}
+	m_bAlienDirection = RIGHT;
 }
