@@ -55,7 +55,7 @@ public:
 	void AlienControl();
 	bool MysteryShipControl(float _fDeltaTick);
 
-	bool ProjectileCollisionCheck();
+	bool ShipProjectileCollision();
 	bool AlienCollision();
 	bool MysteryShipCollision();
 
@@ -67,6 +67,7 @@ public:
 	void UpdateScoreText();
 
 	void PlayerInput();
+	void WaveReset();
 
 protected:
 	//void ProcessCheckForWin();
@@ -99,7 +100,7 @@ protected:
 	float m_fAlienLastMove;
 	float m_fMysteryShipLastMove;
 	float m_fMysteryShipSpawnTimer;
-	bool m_bLevelReset;
+	bool m_bWaveReset;
 	
 	bool m_bAlienDirection;
 	
@@ -107,6 +108,13 @@ protected:
 	//WCHAR* m_strScore;
 
 	HWND m_hWnd;
+
+	int m_iNumAlienColumns;
+	float m_fStartX;
+	float m_fStartY;
+	int m_iXGap;
+	float m_fColumnWidth;
+
 };
 
 #endif // __LEVEL_H__
