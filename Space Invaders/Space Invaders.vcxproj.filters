@@ -51,6 +51,9 @@
     <ClCompile Include="MysteryShip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Barrier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.h">
@@ -92,6 +95,9 @@
     <ClInclude Include="MysteryShip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Barrier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Space Invaders.rc">
@@ -99,53 +105,77 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Mask_Projectile.bmp">
+    <None Include="Assets\Sprite_Barrier.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Sprite_Projectile.bmp">
+    </None>
+    <None Include="Assets\MaskA_Bolt.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Bolt.bmp">
+    </None>
+    <None Include="Assets\MaskA_Cross.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Cross.bmp">
+    </None>
+    <None Include="Assets\SpriteA_Bolt.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_Bolt.bmp">
+    </None>
+    <None Include="Assets\SpriteA_Cross.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_Cross.bmp">
+    </None>
+    <None Include="Assets\MaskA_Alien1.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Alien1.bmp">
+    </None>
+    <None Include="Assets\MaskA_Alien2.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Alien2.bmp">
+    </None>
+    <None Include="Assets\MaskA_Alien3.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Alien3.bmp">
+    </None>
+    <None Include="Assets\SpriteA_Alien1.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_Alien1.bmp">
+    </None>
+    <None Include="Assets\SpriteA_Alien2.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_Alien2.bmp">
+    </None>
+    <None Include="Assets\SpriteA_Alien3.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_Alien3.bmp">
+    </None>
+    <None Include="Assets\MaskA_MysShip.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_MysShip.bmp">
+    </None>
+    <None Include="Assets\SpriteA_MysShip.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_MysShip.bmp">
+    </None>
+    <None Include="Assets\Mask_PlayerShip.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Mask_PlayerShip.bmp">
+    </None>
+    <None Include="Assets\Sprite_PlayerShip.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Sprite_PlayerShip.bmp">
+    </None>
+    <None Include="Assets\Mask_Projectile.bmp">
       <Filter>Resource Files</Filter>
-    </Image>
+    </None>
+    <None Include="Assets\Sprite_Projectile.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 2.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 3.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 4.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 5.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 6.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Mask_Barrier.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
