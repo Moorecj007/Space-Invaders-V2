@@ -81,8 +81,7 @@ void CPlayerProjectile::Draw()
 ********************/
 void CPlayerProjectile::Process(float _fDeltaTick)
 {
-  	m_fY += m_fVelocity * _fDeltaTick;
-	
+	m_fY += m_fVelocity * _fDeltaTick;
 	CEntity::Process(_fDeltaTick);
 	
 }

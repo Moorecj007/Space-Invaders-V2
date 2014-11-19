@@ -176,7 +176,9 @@ void CLevel::Process(float _fDeltaTick)
 
 	if(ProjectileCollisionCheck())
 	{
+		m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
 		m_pProjectile->Process(_fDeltaTick);
+
 	}
  
 }
@@ -269,6 +271,8 @@ bool CLevel::AlienCollision()
 					(fProjectileY  < fAlienY + fAlienH / 2))		//- fProjectileR	//chagnes
 				{
   					(*Aliens)[k]->SetAlive(false);
+					m_iScore += (*Aliens)[k]->GetPoints();
+
 					return true;
 				}
 			}
@@ -332,9 +336,10 @@ void CLevel::UpdatePlayerScore(int _iScore)
 ********************/
 void CLevel::UpdateScoreText()
 {
-    m_strScore = "Score: ";
-
+    m_strScore = "<";
 	m_strScore += ToString(GetPlayerScore());
+	m_strScore += ">";
+
 }
 
 /***********************
@@ -357,8 +362,14 @@ void CLevel::DrawScore()
 	 HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
 	
 	SetTextColor(hdc, RGB(255,0,0));
+<<<<<<< HEAD
 	const int kiX = 0;
     const int kiY = static_cast<int>(m_iHeight - 80);
+=======
+	SetBkColor(hdc, RGB(0,0,0));
+	const int kiX = 333 - (10*(static_cast<int>(m_strScore.size()))/2);
+    const int kiY = static_cast<int>(10);// m_iHeight- 10;
+>>>>>>> origin/Fowles
    
 	UpdateScoreText();
 		
