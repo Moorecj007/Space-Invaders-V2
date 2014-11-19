@@ -28,8 +28,9 @@
 
 // Types
 // Constants
-
+#include "MainMenu.h"
 // Prototypes
+class CMainMenu;
 class CLevel;
 class CBackBuffer;
 class CGame
@@ -45,10 +46,15 @@ public:
 	HINSTANCE GetAppInstance();
 	HWND GetWindow();
 
+	void SetLayout(int _iLayout);
+	int GetLayout();
+
 	CLevel* GetLevel();
 
 	void GameOverWon();
 	void GameOverLost();
+
+	bool MainMenu();
 
 	// Singleton Methods
 	static CGame& GetInstance();
@@ -61,8 +67,12 @@ private:
 
 	// Member Variables
 protected:
+
+	int m_iLayout;
+
 	CClock* m_pClock;
 	CLevel* m_pLevel;
+	CMainMenu* m_pMenu;
 	CBackBuffer* m_pBackBuffer;
 
 	//Application data

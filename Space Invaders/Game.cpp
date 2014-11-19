@@ -41,6 +41,7 @@ CGame::CGame()	: m_pClock(0)
 				, m_hApplicationInstance(0)
 				, m_hMainWindow(0)
 				, m_pBackBuffer(0)
+				, m_iLayout(0)
 {
 }
 
@@ -81,6 +82,10 @@ bool CGame::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeig
 	VALIDATE(m_pBackBuffer->Initialise(_hWnd, _iWidth, _iHeight));
 	m_pLevel = new CLevel();
 	VALIDATE(m_pLevel->Initialise(_iWidth, _iHeight, _hWnd));
+	m_pMenu = new CMainMenu();
+	VALIDATE(m_pMenu->Initialise(_iWidth, _iHeight, _hWnd));
+
+
 	//ShowCursor(false);
 	return (true);
 }
@@ -95,8 +100,24 @@ void CGame::Draw()
 {
 	m_pBackBuffer->Clear();
 	// Do all the game’s drawing here...
-	m_pLevel->Draw();
+	//m_pLevel->Draw();
+	//m_pMenu->Draw();
+	//m_pBackBuffer->Present();
+	switch(m_iLayout)
+	{
+	case 0:
+		{
+			m_pMenu->Draw();
+		}
+		break;
+	case 1:
+		{
+			m_pLevel->Draw();
+		}
+		break;
+	}
 	m_pBackBuffer->Present();
+
 }
 
 /***********************
@@ -107,8 +128,23 @@ void CGame::Draw()
 ********************/
 void CGame::Process(float _fDeltaTick)
 {
+	switch(m_iLayout)
+	{
+	case 0:
+		{
+			m_pMenu->Process(_fDeltaTick);
+		}
+		break;
+	case 1:
+		{
+			m_pLevel->Process(_fDeltaTick);
+		}
+		break;
+	}
+
 	// Process all the game’s logic here.
-	m_pLevel->Process(_fDeltaTick);
+	//m_pLevel->Process(_fDeltaTick);
+	//m_pMenu->Process(_fDeltaTick);
 }
 
 /***********************
@@ -191,3 +227,26 @@ HWND CGame::GetWindow()
 	return (m_hMainWindow);
 }
 
+/***********************
+* ExecuteOneFrame: Executes a single frame for game process, 
+* @author: Asma Shakil
+* @return: void
+********************/
+//void CGame::MainMenu()
+//{
+//	float fDT = m_pClock->GetDeltaTick();
+//	Process(fDT);
+//	Draw();
+//	m_pClock->Process();
+//	Sleep(1);
+//}
+
+void CGame::SetLayout(int _iLayout)
+{
+	m_iLayout = _iLayout;
+}
+
+int CGame::GetLayout()
+{
+	return m_iLayout;
+}

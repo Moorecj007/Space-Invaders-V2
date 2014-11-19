@@ -69,6 +69,8 @@ public:
 	void PlayerInput();
 	void WaveReset();
 
+	
+
 protected:
 	//void ProcessCheckForWin();
 	//void DrawScore();

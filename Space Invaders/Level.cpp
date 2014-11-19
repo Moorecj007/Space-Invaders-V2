@@ -26,6 +26,7 @@ CLevel::CLevel()
 {
 	m_fPlayerShipSpeed = 125.0f;
 	m_fProjectileSpeed = 500.0f;
+	m_fAlienSpeed = 0.025f;
 
 	m_iWidth = 0;
 	m_iHeight = 0;
@@ -91,7 +92,7 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_pProjectile->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
 	// Values to Set up each Alien Column with
-	m_fAlienSpeed = 0.25f;
+	//m_fAlienSpeed = 0.25f;
 
 	float fCurrentX = m_fStartX;
 	float fCurrentY = m_fStartY;
@@ -471,6 +472,12 @@ void CLevel::AlienControl()
 			if( ((*m_pAlienColumns)[i])->BelowLoseThreshold())
 			{
 				MessageBox( m_hWnd, "YOU LOSE", "LOSER", MB_OK);
+				CGame::GetInstance().SetLayout(0);
+				WaveReset();
+				delete m_pMysteryShip;
+				m_pMysteryShip =0;
+				m_fMysteryShipSpawnTimer = -10;
+
 				break;
 			}
 

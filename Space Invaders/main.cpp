@@ -222,6 +222,7 @@ int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdl
 		}
 		else
 		{
+			//while( )
 			rGame.ExecuteOneFrame();
 		}
 	}

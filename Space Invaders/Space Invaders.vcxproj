@@ -85,6 +85,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MysteryShip.cpp" />
     <ClCompile Include="PlayerProjectile.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MysteryShip.h" />
     <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="PlayerShip.h" />
