@@ -41,15 +41,13 @@ public:
 	static void DestroyInstance();
 	
 	virtual ~CPlayerProjectile(void);
-	virtual bool Initialise();
+	virtual bool Initialise(float _fPosX, float _fPosY, float _fVelocityY);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
 
-	float GetSpeed();
-	void SetSpeed(float _fSleep);
-
-	void fly();
-
+	float GetVelocity() const;
+    void SetVelocity(float _fY);
+		
 	bool Fired();
 	void setFired(bool _bFired);
 	
@@ -60,7 +58,7 @@ private:
 
 	// Member Variables
 protected:
-	float m_fSpeed;
+	float m_fVelocity;
 	bool m_bFired;
 
 	int m_iNumFrames;

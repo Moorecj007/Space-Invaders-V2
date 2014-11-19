@@ -24,8 +24,9 @@ CPlayerProjectile* CPlayerProjectile::s_pProjectile = 0;
 * @author: Jc Fowles
 * @return: void
 ********************/
-CPlayerProjectile::CPlayerProjectile(void) : m_fSpeed(25)
+CPlayerProjectile::CPlayerProjectile(void) 
 {
+	m_fVelocity = (0.0f);
 	m_fTimeElapsed = 0;
 	m_fLastMove = 0;
 	m_bFired = false;
@@ -47,9 +48,15 @@ CPlayerProjectile::~CPlayerProjectile(void)
 * @author: Jc Fowles
 * @return: bool : check if it initialised properly
 ********************/
-bool CPlayerProjectile::Initialise()
+bool CPlayerProjectile::Initialise(float _fPosX, float _fPosY, float _fVelocity)
 {
 	VALIDATE(CEntity::Initialise(IDB_SPRITE_PROJECTILE, IDB_MASK_PROJECTILE, m_iNumFrames));
+
+	m_fX = _fPosX;
+    m_fY = _fPosY;
+
+    m_fVelocity = _fVelocity;
+
 	return (true);
 }
 
@@ -74,13 +81,7 @@ void CPlayerProjectile::Draw()
 ********************/
 void CPlayerProjectile::Process(float _fDeltaTick)
 {
-  	m_fTimeElapsed   += _fDeltaTick;
-	
-	if((m_fTimeElapsed - m_fLastMove) > (0.01))
-	{
-		fly();
-		m_fLastMove = m_fTimeElapsed;
-	}
+  	m_fY += m_fVelocity * _fDeltaTick;
 	
 	CEntity::Process(_fDeltaTick);
 	
@@ -112,38 +113,6 @@ void CPlayerProjectile::DestroyInstance()
 }
 
 /***********************
-* setSpeed: Sets the players projectile speed
-* @author: Jc Fowles
-* @parameter: _fSpeed: The speed the projectile moves
-* @return: void
-********************/
-void CPlayerProjectile::SetSpeed(float _fSpeed)
-{
-	m_fSpeed = _fSpeed;
-}
-
-/***********************
-* getSpeed: Gets the projectile ships speed
-* @author: Jc Fowles
-* @return: float: the speed the projectile moves
-********************/
-float CPlayerProjectile::GetSpeed()
-{
-	return m_fSpeed;
-}
-
-/***********************
-* fly: Gets the projectile ships speed
-* @author: Jc Fowles
-* @return: float: the speed the projectile moves
-********************/
-void CPlayerProjectile::fly()
-{
-	CEntity::m_fY += (-1);
-}
-
-
-/***********************
 * Fired: checks to see if the player has fired the projectile 
 * @author: Jc Fowels
 * @return: bool: true if fired
@@ -161,4 +130,25 @@ bool CPlayerProjectile::Fired()
 void CPlayerProjectile::setFired(bool _bFired)
 {
 	m_bFired = _bFired;
+}
+
+/***********************
+* GetVelocity: Gets the player ships projectile speed
+* @author: Jc Fowles
+* @return: float: the speed the projectile moves
+********************/
+float CPlayerProjectile::GetVelocity() const
+{
+    return (m_fVelocity);
+}
+
+/***********************
+* SetVelocity: Sets the player ships projectile speed
+* @author: Jc Fowles
+* @parameter: _fSpeed: The speed the projectile moves
+* @return: void
+********************/
+void CPlayerProjectile::SetVelocity(float _fY)
+{
+    m_fVelocity = _fY;
 }

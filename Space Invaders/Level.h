@@ -56,14 +56,17 @@ public:
 	bool MysteryShipControl(float _fDeltaTick);
 
 	bool ProjectileCollisionCheck();
-	bool CLevel::AlienCollision();
+	bool AlienCollision();
+	bool MysteryShipCollision();
 
-	void UpdatePlayerScore(float _fScore);
-	float GetPlayerScore();
+	void UpdatePlayerScore(int _iScore);
+	int GetPlayerScore();
 
 	void DrawScore();
 
 	void UpdateScoreText();
+
+	void PlayerInput();
 
 protected:
 	//void ProcessCheckForWin();
@@ -86,7 +89,10 @@ protected:
 	vector<CAlienColumn*>* m_pAlienColumns;
 	CMysteryShip* m_pMysteryShip;
 	
-	float m_fScore;
+	float m_fPlayerShipSpeed;
+	float m_fProjectileSpeed;
+
+	int m_iScore;
 	float m_fAlienSpeed;
 	float m_fTimeElapsed;
 	float m_fAlienLastMove;

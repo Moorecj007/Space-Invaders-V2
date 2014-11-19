@@ -22,7 +22,7 @@
 ********************/
 CPlayerShip::CPlayerShip(void)
 {
-	m_fSpeed = 10.0;
+	m_fVelocity = 0.0f;
 	m_bFired = false;
 	m_iNumFrames = 1;
 }
@@ -65,46 +65,9 @@ void CPlayerShip::Draw()
 ********************/
 void CPlayerShip::Process(float _fDeltaTick)
 {
+	m_fX += m_fVelocity*_fDeltaTick;
 	CEntity::Process(_fDeltaTick);
 }
-
-/***********************
-* setSpeed: Sets the players ships speed
-* @author: Jc Fowles
-* @parameter: _fSpeed: The speed the playerShip moves
-* @return: void
-********************/
-void CPlayerShip::SetSpeed(float _fSpeed)
-{
-	m_fSpeed = _fSpeed;
-}
-
-/***********************
-* getSpeed: Gets the players ships speed
-* @author: Jc Fowles
-* @return: float: the speed the playership moves
-********************/
-float CPlayerShip::GetSpeed()
-{
-	return m_fSpeed;
-}
-
-
-/***********************
-* SetX: Sets the X value of the plyerShip 
-* @author: Jc Fowels
-* @parameter: _f: The new X value
-* @return: void
-********************/
-/*
-void CPlayerShip::SetX(float _f)
-{
-	if((!(_f < GetWidth()/2)) && !(672 - (GetWidth()/2)))
-	{
-		m_fX = _f;
-	}
-	
-}*/
 
 /***********************
 * Fired: checks to see if the player has fired the projectile 
@@ -124,4 +87,25 @@ bool CPlayerShip::Fired()
 void CPlayerShip::setFired(bool _bFired)
 {
 	m_bFired = _bFired;
+}
+
+/***********************
+* GetVelocity: Gets the players ships speed
+* @author: Jc Fowles
+* @return: float: the speed the playership moves
+********************/
+float CPlayerShip::GetVelocity() const
+{
+    return (m_fVelocity);
+}
+
+/***********************
+* SetVelocity: Sets the players ships speed
+* @author: Jc Fowles
+* @parameter: _fSpeed: The speed the playerShip moves
+* @return: void
+********************/
+void CPlayerShip::SetVelocity(float _fX)
+{
+    m_fVelocity = _fX;
 }

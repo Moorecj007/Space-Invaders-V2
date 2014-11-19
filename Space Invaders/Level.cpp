@@ -24,6 +24,9 @@
 ********************/
 CLevel::CLevel()
 {
+	m_fPlayerShipSpeed = 125.0f;
+	m_fProjectileSpeed = 500.0f;
+
 	m_iWidth = 0;
 	m_iHeight = 0;
 	m_pPlayerShip = 0;
@@ -33,7 +36,7 @@ CLevel::CLevel()
 	m_fAlienLastMove = 0;
 	m_fMysteryShipLastMove = 0;
 	m_bAlienDirection = RIGHT;
-	m_fScore = 0;
+	m_iScore = 0;
 	m_strScore = "Bricks Remaining: ";
 
 	m_bLevelReset;
@@ -76,8 +79,9 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_pPlayerShip->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
 	//Projectile creation and positioning
+	const float fBallVelY = 75.0f;
 	m_pProjectile = &(CPlayerProjectile::GetInstance());
-	VALIDATE(m_pProjectile->Initialise());
+	VALIDATE(m_pProjectile->Initialise(m_iWidth / 2.0f, m_iHeight / 2.0f,  fBallVelY));
 	//position based: x middle of image
 	//				  y top of image
 	m_pProjectile->SetX(_iWidth/2.0f);  // from the left
@@ -151,32 +155,29 @@ void CLevel::Draw()
 void CLevel::Process(float _fDeltaTick)
 {
 	m_fTimeElapsed += _fDeltaTick;
-
+	
+	PlayerInput();
+	AlienControl();
+	MysteryShipControl(_fDeltaTick);
+	
+	// Process all the Alien Columns
+	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
+	{
+		((*m_pAlienColumns)[i])->Process(_fDeltaTick);
+	}
+		
 	if(m_pPlayerShip->Fired()) 
 	{
-		for(int i = 0; i < m_pProjectile->GetSpeed() ; i++)
-		{
-			m_pProjectile->Process(_fDeltaTick);
-		}
+		m_pProjectile->Process(_fDeltaTick);
 	}
 	
 	m_pPlayerShip->Process(_fDeltaTick);
 
 	if(ProjectileCollisionCheck())
 	{
-		m_pProjectile->SetY(m_pPlayerShip->GetY()+1);
-		m_pProjectile->SetX(m_pPlayerShip->GetX());
 		m_pProjectile->Process(_fDeltaTick);
 	}
-   
-  	AlienControl();
-	// Process all the Alien Columns
-	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
-	{
-		((*m_pAlienColumns)[i])->Process(_fDeltaTick);
-	}
-	
-	MysteryShipControl(_fDeltaTick);
+ 
 }
 
 /***********************
@@ -206,24 +207,28 @@ CPlayerProjectile* CLevel::GetPlayerProjectile() const
 ********************/
 bool CLevel::ProjectileCollisionCheck()
 {
-	int iPositionX = static_cast<int>(m_pProjectile->GetX());
 	int iPositionY = static_cast<int>(m_pProjectile->GetY());
 		
 	if(iPositionY < 0 )
 	{
-		m_pProjectile->SetY(m_pPlayerShip->GetY()+1);
-		m_pProjectile->SetX(m_pPlayerShip->GetX());
 		m_pPlayerShip->setFired(false);
 		m_pProjectile->setFired(false);
 		return true;
 	}
 	else if(AlienCollision())
 	{
-		m_pProjectile->SetY(m_pPlayerShip->GetY()+1);
-		m_pProjectile->SetX(m_pPlayerShip->GetX());
 		m_pPlayerShip->setFired(false);
 		m_pProjectile->setFired(false);
 		return true;
+	}
+	else if(m_pMysteryShip != 0)
+	{
+		if(MysteryShipCollision())
+		{
+			m_pPlayerShip->setFired(false);
+			m_pProjectile->setFired(false);
+			return true;
+		}
 	}
 	return false;
 }
@@ -250,14 +255,12 @@ bool CLevel::AlienCollision()
 				float fProjectileX = m_pProjectile->GetX();			//projectile x co-ord
 				float fProjectileY = m_pProjectile->GetY();			//projectile y co-ord
 
-				float fAlienX = (*Aliens)[k]->GetX();				//Current Aliens x co-ord
-				float fAlienY = (*Aliens)[k]->GetY();				//Current Aliens y co-ord
+				float fAlienX = (*Aliens)[k]->GetX();				//Current MysteryShip x co-ord
+				float fAlienY = (*Aliens)[k]->GetY();				//Current MysteryShip y co-ord
 
-				float fAlienH = (*Aliens)[k]->GetHeight();			//Current Aliens Height
-				float fAlienW = (*Aliens)[k]->GetWidth();			//Current Aliens Width
-
-
-
+				float fAlienH = (*Aliens)[k]->GetHeight();			//Current MysteryShip Height
+				float fAlienW = (*Aliens)[k]->GetWidth();			//Current MysteryShip Width
+				
 				//Check if overlapping
 				if ((fProjectileX  > fAlienX - fAlienW / 2) &&		//+ fProjectileR	
 					(fProjectileX  < fAlienX + fAlienW / 2) &&		//- fProjectileR
@@ -274,14 +277,50 @@ bool CLevel::AlienCollision()
 }
 
 /***********************
+* AlienCollision: collistion checks for projectile and aliens
+* @author: Jc Fowles
+* @return: bool: true if collision detected with alien
+********************/
+bool CLevel::MysteryShipCollision()
+{
+	float fProjectileR = m_pProjectile->GetWidth()/2;   // projectile radius
+
+	float fProjectileX = m_pProjectile->GetX();			//projectile x co-ord
+	float fProjectileY = m_pProjectile->GetY();			//projectile y co-ord
+
+	float fUFOX = m_pMysteryShip->GetX();				//Current Aliens x co-ord
+	float fUFOY = m_pMysteryShip->GetY();				//Current Aliens y co-ord
+
+	float fUFOH = m_pMysteryShip->GetHeight();			//Current Aliens Height
+	float fUFOW = m_pMysteryShip->GetWidth();			//Current Aliens Width
+				
+	//Check if overlapping
+	if ((fProjectileX  > fUFOX - fUFOW / 2) &&		//+ fProjectileR	
+		(fProjectileX  < fUFOX + fUFOW / 2) &&		//- fProjectileR
+		(fProjectileY  > fUFOY - fUFOH / 2) &&      //+ fProjectileR    // changes
+		(fProjectileY  < fUFOY + fUFOH / 2))		//- fProjectileR	//chagnes
+	{
+		m_iScore += m_pMysteryShip->GetPoints();
+			 
+  		delete m_pMysteryShip;
+		m_pMysteryShip =0;
+		m_fMysteryShipSpawnTimer = -10;
+
+		return true;
+	}
+	
+	return false; // if no collision detected return false
+}
+
+/***********************
 * UpdatePlayerScore: Updates the player score with passed in value
 * @author: Jc Fowles
 * @parameter: _fScore: amount to update score by
 * @return: void
 ********************/
-void CLevel::UpdatePlayerScore(float _fScore)
+void CLevel::UpdatePlayerScore(int _iScore)
 {
-	m_fScore += _fScore;
+	m_iScore += _iScore;
 }
 
 /***********************
@@ -302,9 +341,9 @@ void CLevel::UpdateScoreText()
 * @author: Jc Fowles
 * @return: float: The players score
 ********************/
-float CLevel::GetPlayerScore()
+int CLevel::GetPlayerScore()
 {
-	return m_fScore;
+	return m_iScore;
 }
 
 
@@ -466,4 +505,73 @@ bool CLevel::MysteryShipControl(float _fDeltaTick)
 	}
 
 	return (true);
+}
+
+/***********************
+* PlayerInput: Recieves Keyboard input to contol the player ship
+* @author: Jc Fowles
+* @return: void
+********************/
+void CLevel::PlayerInput()
+{
+	// IF player presses left or right, 
+	if (GetAsyncKeyState( VK_RIGHT ) & 0x8000)
+	{
+		if(m_pPlayerShip->GetX() > ( 672 - (m_pPlayerShip->GetWidth()/2)-18))//- (theShip->GetWidth())))
+		{
+			m_pPlayerShip->SetVelocity(0.0f);
+			m_pPlayerShip->SetX(static_cast<float>(m_pPlayerShip->GetX()));
+			
+		}
+		else
+		{
+			m_pPlayerShip->SetVelocity(m_fPlayerShipSpeed);
+		}
+		
+		if(m_pProjectile->GetY() >= m_pPlayerShip->GetY())
+		{
+			m_pProjectile->SetX(m_pPlayerShip->GetX());
+		}
+	}
+	else if (GetAsyncKeyState( VK_LEFT ) & 0x8000)
+	{
+
+		if(m_pPlayerShip->GetX() <= ((m_pPlayerShip->GetWidth()/2) ))
+		{
+			m_pPlayerShip->SetVelocity(0.0f);
+			m_pPlayerShip->SetX(static_cast<float>(m_pPlayerShip->GetX()));
+			
+		}
+		else
+		{
+			m_pPlayerShip->SetVelocity(-1*m_fPlayerShipSpeed);
+		}
+		
+		if(m_pProjectile->GetY() >= m_pPlayerShip->GetY())
+		{
+			m_pProjectile->SetX(m_pPlayerShip->GetX());
+		}
+	}
+	else // left or  right key-up
+	{
+		m_pPlayerShip->SetVelocity( 0.0f );
+	}
+
+	if (GetAsyncKeyState( VK_SPACE ) & 0x8000)
+	{
+		if(!(m_pProjectile->Fired()))
+		{
+			m_pProjectile->SetX(m_pPlayerShip->GetX());
+			m_pProjectile->SetY(m_pPlayerShip->GetY());
+		}
+		
+		m_pProjectile->SetVelocity(-1*m_fProjectileSpeed);
+		m_pPlayerShip->setFired(true);
+		m_pProjectile->setFired(true);
+	}
+	else
+	{
+		// Do nothing.
+	}
+	
 }

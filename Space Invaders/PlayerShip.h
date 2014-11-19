@@ -41,15 +41,14 @@ public:
 	virtual void Process(float _fDeltaTick);
 	 
 	//virtual void SetX(float _f);
-
-	void SetSpeed(float _fSpeed);
-	float GetSpeed();
-
+	float GetVelocity() const;
+	void SetVelocity(float _fX);
+	 	
 	bool Fired();
 	void setFired(bool _bFired);
 
 protected:
-	float m_fSpeed;
+	float m_fVelocity;
 	bool m_bFired;
 private:
 	CPlayerShip(const CPlayerShip& _kr);

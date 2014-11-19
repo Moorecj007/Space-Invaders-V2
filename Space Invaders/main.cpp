@@ -45,66 +45,66 @@ LRESULT CALLBACK WindowProc(HWND _hWnd, UINT _uiMsg, WPARAM _wParam, LPARAM _lPa
 {
 	switch (_uiMsg)
 	{
-	case WM_KEYDOWN:
-	{
-		CPlayerShip* theShip = CGame::GetInstance().GetLevel()->GetPlayerShip();
-		CPlayerProjectile* thePojectile = &(CPlayerProjectile::GetInstance());
-		float fCurrentX = theShip->GetX();
+	//case WM_KEYDOWN:
+	//{
+	//	CPlayerShip* theShip = CGame::GetInstance().GetLevel()->GetPlayerShip();
+	//	CPlayerProjectile* thePojectile = &(CPlayerProjectile::GetInstance());
+	//	float fCurrentX = theShip->GetX();
 
-		switch(_wParam)
-		{
-			//changes 
-			case VK_LEFT:
-			{
-				
-				if(fCurrentX <= ((theShip->GetWidth()/2) + 15 ))
-				{
-					theShip->SetX(static_cast<float>(fCurrentX));
-				}
-				else
-				{
-					theShip->SetX(static_cast<float>(fCurrentX - theShip->GetSpeed() ));
-				}
-				
-				if(thePojectile->GetY() >= theShip->GetY())
-				{
-					thePojectile->SetX(theShip->GetX());
-				}
+	//	switch(_wParam)
+	//	{
+	//		//changes 
+	//		case VK_LEFT:
+	//		{
+	//			
+	//			if(fCurrentX <= ((theShip->GetWidth()/2) + 15 ))
+	//			{
+	//				theShip->SetX(static_cast<float>(fCurrentX));
+	//			}
+	//			else
+	//			{
+	//				theShip->SetX(static_cast<float>(fCurrentX - theShip->GetSpeed() ));
+	//			}
+	//			
+	//			if(thePojectile->GetY() >= theShip->GetY())
+	//			{
+	//				thePojectile->SetX(theShip->GetX());
+	//			}
 
-				return (0);
-			}
-			break;
-			case VK_RIGHT:
-			{
-				
-				if(fCurrentX > ( 672 - (theShip->GetWidth()/2)-20))//- (theShip->GetWidth())))
-				{
-					theShip->SetX(static_cast<float>(fCurrentX ));
+	//			return (0);
+	//		}
+	//		break;
+	//		case VK_RIGHT:
+	//		{
+	//			
+	//			if(fCurrentX > ( 672 - (theShip->GetWidth()/2)-20))//- (theShip->GetWidth())))
+	//			{
+	//				theShip->SetX(static_cast<float>(fCurrentX ));
 
-				}
-				else
-				{
-					theShip->SetX(static_cast<float>(fCurrentX + theShip->GetSpeed() ));
-				}
+	//			}
+	//			else
+	//			{
+	//				theShip->SetX(static_cast<float>(fCurrentX + theShip->GetSpeed() ));
+	//			}
 
-				if(thePojectile->GetY() >= theShip->GetY())
-				{
-					thePojectile->SetX(theShip->GetX());
-				}
+	//			if(thePojectile->GetY() >= theShip->GetY())
+	//			{
+	//				thePojectile->SetX(theShip->GetX());
+	//			}
 
-				return (0);
-			}
-			break;
-			case VK_SPACE:
-			{
-				
-				theShip->setFired(true);
-				thePojectile->setFired(true);
-						          
-			}
-			break;
-		}
-	}
+	//			return (0);
+	//		}
+	//		break;
+	//		case VK_SPACE:
+	//		{
+	//			
+	//			theShip->setFired(true);
+	//			thePojectile->setFired(true);
+	//					          
+	//		}
+	//		break;
+	//	}
+	//}
 	break;
 	case WM_DESTROY:
 		{
