@@ -22,6 +22,9 @@ CMainMenu::CMainMenu(void)
 	m_iHeight = 0;
 	m_pPlayerShip = 0;
 
+	m_fPlayerShipSpeed = 250.0f;
+	m_fProjectileSpeed = 500.0f;
+
 	m_strMove = "Move: <- and -> ";
 	m_strShoot = "Shoot: SpaceBar";
 }
@@ -64,8 +67,28 @@ bool CMainMenu::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_pProjectile->SetX(_iWidth/2.0f);  // from the left
 	m_pProjectile->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
+
+	m_pAlienStart = new CAlien;
+	VALIDATE(m_pAlienStart->Initialise(4));
+
+	m_pAlienStart->SetX(250);
+	m_pAlienStart->SetY(500);
+
+	m_pAlienExit = new CAlien;
+	VALIDATE(m_pAlienExit->Initialise(5));
+
+	m_pAlienExit->SetX(649);
+	m_pAlienExit->SetY(500);
+
+	m_pAlienTitle = new CAlien;
+	VALIDATE(m_pAlienTitle->Initialise(6));
+
+	m_pAlienTitle->SetX(448);
+	m_pAlienTitle->SetY(200 );
+	 
+
+
 	return true;
-	
 }
 
 /***********************
@@ -78,6 +101,9 @@ void CMainMenu::Draw()
 {
 	m_pProjectile->Draw();
 	m_pPlayerShip->Draw();
+	m_pAlienStart->Draw();
+	m_pAlienExit->Draw();
+	m_pAlienTitle->Draw();
 	DrawText();
 }
 
@@ -92,6 +118,14 @@ void CMainMenu::Process(float _fDeltaTick)
 {
 	PlayerInput();
 
+	m_pAlienStart->Process(_fDeltaTick);
+	m_pAlienExit->Process(_fDeltaTick);
+	m_pAlienTitle->Process(_fDeltaTick);
+
+	AlienCollision(m_pAlienStart, 4);
+	AlienCollision(m_pAlienExit, 5);
+	AlienCollision(m_pAlienTitle, 6);
+
 	if(m_pPlayerShip->Fired() == false) 
 	{
 		m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
@@ -103,8 +137,6 @@ void CMainMenu::Process(float _fDeltaTick)
 		m_pProjectile->Process(_fDeltaTick);
 	}
 	
-	
-
 	m_pPlayerShip->Process(_fDeltaTick);
 	
 	if(ShipProjectileCollision())
@@ -135,7 +167,7 @@ void CMainMenu::PlayerInput()
 		}
 		else
 		{
-			m_pPlayerShip->SetVelocity(125.0);
+			m_pPlayerShip->SetVelocity(m_fPlayerShipSpeed);
 		}
 		
 		if(m_pProjectile->GetY() >= m_pPlayerShip->GetY())
@@ -154,7 +186,7 @@ void CMainMenu::PlayerInput()
 		}
 		else
 		{
-			m_pPlayerShip->SetVelocity(-125.0f);
+			m_pPlayerShip->SetVelocity(-1*m_fPlayerShipSpeed);
 		}
 		
 		if(m_pProjectile->GetY() >= m_pPlayerShip->GetY())
@@ -175,7 +207,7 @@ void CMainMenu::PlayerInput()
 			m_pProjectile->SetY(m_pPlayerShip->GetY());
 		}
 		
-		m_pProjectile->SetVelocity(-500);
+		m_pProjectile->SetVelocity(-1*m_fProjectileSpeed);
 		m_pPlayerShip->setFired(true);
 		m_pProjectile->setFired(true);
 	}
@@ -250,4 +282,92 @@ CPlayerShip* CMainMenu::GetShip()
 CPlayerProjectile* CMainMenu::GetShipProj()
 {
 	return m_pProjectile;
+}
+
+
+/***********************
+* AlienCollision: collistion checks for projectile and aliens
+* @author: Jc Fowles
+* @return: bool: true if collision detected with alien
+********************/
+bool CMainMenu::AlienCollision(CAlien* _Alien, int _iType)
+{
+	
+
+				
+
+	float fProjectileXL = m_pProjectile->GetX() - m_pProjectile->GetWidth()/2;			
+	float fProjectileXR = m_pProjectile->GetX() + m_pProjectile->GetWidth()/2;
+	float fProjectileYT = m_pProjectile->GetY() - m_pProjectile->GetHeight()/2;				
+	float fProjectileYB = m_pProjectile->GetY() + m_pProjectile->GetHeight()/2;	
+
+	float fAlienXL = _Alien->GetX() - _Alien->GetWidth()/2;			
+	float fAlienXR = _Alien->GetX() + _Alien->GetWidth()/2;
+	float fAlienYT = _Alien->GetY() - _Alien->GetHeight()/2;				
+	float fAlienYB = _Alien->GetY() + _Alien->GetHeight()/2;	
+				
+	TRectangle rctProjectile = {fProjectileXL,fProjectileYT,fProjectileXR, fProjectileYB};
+
+	TRectangle rctAlien = {fAlienXL,fAlienYT, fAlienXR,fAlienYB};
+
+	//Check if overlapping
+	if (IsIntersection(rctProjectile,rctAlien))
+
+	{
+  		switch(_iType)
+		{
+		case (4):
+			{
+				m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
+				m_pProjectile->SetX(m_pPlayerShip->GetX());
+				m_pPlayerShip->setFired(false);
+				m_pProjectile->setFired(false);
+				CGame::GetInstance().SetLayout(1);
+				return true;
+			}
+		break;
+		case (5):
+			{
+				SendMessage(m_hWnd, WM_DESTROY, 0,0);
+				return true;
+			}
+			break;
+		case (6):
+			{
+				m_pPlayerShip->setFired(false);
+				m_pProjectile->setFired(false);
+				return true;
+			}
+			break;
+		default:break;
+		}
+
+		return true;
+	}
+			
+	return false; // if no collision detected return false
+}
+
+/***********************
+* IsIntersection: calculates if there is an intersection between 2 rectangles 
+* @author: Jc Fowles
+* @parameter: _krRect1: a refrence to the first geometric shape, which is a rectangle
+* @parameter: _krRect2: a refrence to the first geometric shape, which is a rectangle
+* @return: bool: true if the shapes do intersect, false if the shapes do not intersect
+********************/
+bool CMainMenu::IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRect2)
+{
+	
+	if( _krRect1.m_fTB < _krRect2.m_fYT || _krRect1.m_fYT > _krRect2.m_fTB			
+		|| _krRect1.m_fXR < _krRect2.m_fXL || _krRect1.m_fXL > _krRect2.m_fXR )
+	//checks  to see if the 2 rectangles do NOT intesect
+	{
+		return false;
+	}
+	else
+	//if the above conditions are not met therefor the rectanges are intesecting
+	{
+		return true;
+	}
+
 }

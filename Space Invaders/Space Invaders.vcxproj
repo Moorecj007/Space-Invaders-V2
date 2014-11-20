@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -115,6 +115,12 @@
     <ResourceCompile Include="Space Invaders.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Mask_Exit.bmp" />
+    <Image Include="Assets\Mask_Start.bmp" />
+    <Image Include="Assets\Mask_Title.bmp" />
+    <Image Include="Assets\Sprite_Exit.bmp" />
+    <Image Include="Assets\Sprite_Start.bmp" />
+    <Image Include="Assets\Sprite_Title.bmp" />
     <Image Include="MaskA_Alien1.bmp" />
     <Image Include="MaskA_Alien2.bmp" />
     <Image Include="MaskA_Alien3.bmp" />
@@ -142,7 +148,6 @@
     <None Include="Assets\Mask_Barrier.bmp" />
     <None Include="Assets\Mask_PlayerShip.bmp" />
     <None Include="Assets\Mask_Projectile.bmp" />
-    <None Include="Assets\Mask_Title.bmp" />
     <None Include="Assets\SpriteA_Alien1.bmp" />
     <None Include="Assets\SpriteA_Alien2.bmp" />
     <None Include="Assets\SpriteA_Alien3.bmp" />
@@ -152,7 +157,6 @@
     <None Include="Assets\Sprite_Barrier.bmp" />
     <None Include="Assets\Sprite_PlayerShip.bmp" />
     <None Include="Assets\Sprite_Projectile.bmp" />
-    <None Include="Assets\Sprite_Title.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

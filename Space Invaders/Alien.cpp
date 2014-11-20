@@ -47,21 +47,42 @@ bool CAlien::Initialise(int _iType)
 		{
 			m_iMaskID = IDB_MASKA_ALIEN1;
 			m_iSpriteID = IDB_SPRITEA_ALIEN1;
-			m_iPointValue = 1000;
+			m_iPointValue = 100;
 		}
 		break;
 	case (2):
 		{
 			m_iMaskID = IDB_MASKA_ALIEN2;
 			m_iSpriteID = IDB_SPRITEA_ALIEN2;
-			m_iPointValue = 2000;
+			m_iPointValue = 200;
 		}
 		break;
 	case (3):
 		{
 			m_iMaskID = IDB_MASKA_ALIEN3;
 			m_iSpriteID = IDB_SPRITEA_ALIEN3;
-			m_iPointValue = 4000;
+			m_iPointValue = 400;
+		}
+		break;
+	case (4):
+		{
+			m_iMaskID = IDB_MASK_START;
+			m_iSpriteID = IDB_SPRITE_START;
+			m_iPointValue = 0;
+		}
+		break;
+	case (5):
+		{
+			m_iMaskID = IDB_MASK_EXIT;
+			m_iSpriteID = IDB_SPRITE_EXIT;
+			m_iPointValue = 0;
+		}
+		break;
+	case (6):
+		{
+			m_iMaskID = IDB_MASK_TITLE;
+			m_iSpriteID = IDB_SPRITE_TITLE;
+			m_iPointValue = 0;
 		}
 		break;
 	default: {}
@@ -131,11 +152,11 @@ void CAlien::Move(bool& _rbDirection)
 	{
 		if(_rbDirection == RIGHT)
 		{
-			CEntity::m_fX += 10;
+			CEntity::m_fX += 20;
 		}
 		else
 		{
-			CEntity::m_fX += (-10);
+			CEntity::m_fX += (-20);
 		}
 	}
 }
@@ -149,7 +170,7 @@ void CAlien::MoveDown()
 {
 	if( m_bAlive)
 	{
-		CEntity::m_fY += 10;
+		CEntity::m_fY += 24;
 	}
 }
 
@@ -170,7 +191,7 @@ void CAlien::ToggleAnimation()
 ********************/
 bool CAlien::BelowLoseThreshold()
 {
-	if( CEntity::GetY() > 610)
+	if( CEntity::GetY() > 768)
 	{
 		return true;
 	}

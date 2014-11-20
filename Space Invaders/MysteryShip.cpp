@@ -48,12 +48,12 @@ bool CMysteryShip::Initialise()
 	m_iSpriteID = IDB_SPRITEA_MYSSHIP;
 
 	int iPointMultiplier = (rand() % 6);
-	m_iPointValue = 40 * iPointMultiplier;
+	m_iPointValue = 50 * iPointMultiplier;
 
 	VALIDATE(CEntity::Initialise(m_iSpriteID, m_iMaskID, m_iNumFrames));
 
-	CEntity::SetX(-20);
-	CEntity::SetY(50);
+	CEntity::SetX(-1*GetHeight());
+	CEntity::SetY(90);
 	return (true);
 }
 

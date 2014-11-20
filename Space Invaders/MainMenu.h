@@ -23,6 +23,7 @@
 // Library Includes
 #include <string>
 #include <locale>
+#include "Entity.h"
 #include "Level.h"
 #include "Utilities.h"
 #include "PlayerProjectile.h"
@@ -35,7 +36,7 @@ class CLevel;
 class CPlayerShip;
 class CPlayerProjectile;
 class CGame; 
-//class CLevel;
+class CAlien;
 
 class CMainMenu
 {
@@ -48,15 +49,16 @@ public:
 	virtual void Draw();
     virtual void Process(float _fDeltaTick);
 	bool ShipProjectileCollision();
-
+	bool AlienCollision(CAlien* _Alien, int _iType);
 	void DrawText();
 
 	void PlayerInput();
-   // CPaddle* GetPaddle() const;
+  
 	CPlayerShip* GetShip();
 	CPlayerProjectile* GetShipProj();
 
-    //int GetBricksRemaining() const;
+    bool IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRect2);
+
 
 protected:
    
@@ -73,6 +75,13 @@ protected:
 
 	CPlayerShip* m_pPlayerShip;
 	CPlayerProjectile* m_pProjectile;
+
+	CAlien* m_pAlienStart;
+	CAlien* m_pAlienExit;
+	CAlien* m_pAlienTitle;
+
+	float m_fPlayerShipSpeed;
+	float m_fProjectileSpeed;
 
 	std::string m_strMove;
 	std::string m_strShoot;

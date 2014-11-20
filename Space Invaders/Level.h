@@ -61,19 +61,22 @@ public:
 	bool AlienCollision();
 	bool MysteryShipCollision();
 	bool BarrierCollision();
+	bool BarrierAlienCollision();
 	bool ShipCollision();
 
 	void UpdatePlayerScore(int _iScore);
 	int GetPlayerScore();
 
+	bool GameOver(bool _bGameOver);
+
 	void DrawScore();
 
 	void UpdateScoreText();
-
+	void UpdateLivesText();
 	void PlayerInput();
 	void WaveReset();
 	bool AlienFire();
-	
+	int GetPlayerLives();
 	bool IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRect2);
 
 protected:
@@ -108,7 +111,9 @@ protected:
 
 	float m_fAlienProjectileSpeed;
 	float m_fAlienSpeed;
+	float m_fAlienSpeedOrig;
 	int m_fAlienFireFreq;
+	int m_fAlienFireFreqOrig;
 
 	float m_fMysteryShipSpeed;
 
@@ -116,6 +121,8 @@ protected:
 
 	int m_iScore;
 	int m_iPLayerLives;
+	int respawn;
+	int respawnTime;
 
 	float m_fTimeElapsed;
 	float m_fAlienLastMove;
@@ -127,6 +134,7 @@ protected:
 	bool m_bAlienDirection;
 	
 	string m_strScore;
+	string m_strLives;
 	//WCHAR* m_strScore;
 
 	HWND m_hWnd;
