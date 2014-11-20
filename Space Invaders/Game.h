@@ -17,6 +17,7 @@
 */
 
 #pragma once
+
 #if !defined(__GAME_H__)
 #define __GAME_H__
 
@@ -25,14 +26,13 @@
 
 // Local Includes
 #include "clock.h"
-
-// Types
-// Constants
 #include "MainMenu.h"
+
 // Prototypes
 class CMainMenu;
 class CLevel;
 class CBackBuffer;
+
 class CGame
 {
 	// Member Functions
@@ -41,24 +41,25 @@ public:
 	bool Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeight);
 	void Draw();
 	void Process(float _fDeltaTick);
+
 	void ExecuteOneFrame();
-	CBackBuffer* GetBackBuffer();
-	HINSTANCE GetAppInstance();
-	HWND GetWindow();
-
-	void SetLayout(int _iLayout);
-	int GetLayout();
-
-	CLevel* GetLevel();
-	CMainMenu* GetMenu();
-
 	void GameOverWon();
 	void GameOverLost();
 
-	std::string GetHighScore();
-	void SetHighScore();
-
 	bool MainMenu();
+
+	// Getters
+	CBackBuffer* GetBackBuffer();
+	HINSTANCE GetAppInstance();
+	HWND GetWindow();
+	CLevel* GetLevel();
+	CMainMenu* GetMenu();
+	std::string GetHighScore();
+	int GetLayout();
+
+	// Setters
+	void SetLayout(int _iLayout);
+	void SetHighScore();
 
 	// Singleton Methods
 	static CGame& GetInstance();
@@ -71,15 +72,12 @@ private:
 
 	// Member Variables
 protected:
-
-	int m_iLayout;
-
 	CClock* m_pClock;
 	CLevel* m_pLevel;
 	CMainMenu* m_pMenu;
 	CBackBuffer* m_pBackBuffer;
 
-	
+	int m_iLayout;
 
 	//Application data
 	HINSTANCE m_hApplicationInstance;
@@ -87,6 +85,5 @@ protected:
 
 	// Singleton Instance
 	static CGame* s_pGame;
-
 };
 #endif // __GAME_H__

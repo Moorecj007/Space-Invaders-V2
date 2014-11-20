@@ -49,11 +49,11 @@ CSprite::~CSprite()
 	DeleteObject(m_hSprite);
 	DeleteObject(m_hMask);
 	--s_iRefCount;
-	if (s_iRefCount == 0)
+	/*if (s_iRefCount == 0)
 	{
 		DeleteDC(s_hSharedSpriteDC);
 		s_hSharedSpriteDC = 0;
-	}
+	}*/
 }
 
 /***********************
@@ -173,32 +173,6 @@ void CSprite::SetX(int _i)
 void CSprite::SetY(int _i)
 {
 	m_iY = _i;
-}
-
-/***********************
-* TranslateRelative: Translates the sprite by the given X and Y values
-* @author: Asma Shakil
-* @parameter: _iX: The ammount to move the sprite by on the X axis
-* @parameter: _iY: The ammount to move the sprite by on the Y axis
-* @return: void
-********************/
-void CSprite::TranslateRelative(int _iX, int _iY)
-{
-	m_iX += _iX;
-	m_iY += _iY;
-}
-
-/***********************
-* TranslateAbsolute: Moves the sprite to the given coordinates
-* @author: Asma Shakil
-* @parameter: _iX: The X coordinate to move the sprite to
-* @parameter: _iY: The X coordinate to move the sprite to
-* @return: void
-********************/
-void CSprite::TranslateAbsolute(int _iX, int _iY)
-{
-	m_iX = _iX;
-	m_iY = _iY;
 }
 
 /***********************

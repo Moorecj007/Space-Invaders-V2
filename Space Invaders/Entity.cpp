@@ -44,7 +44,7 @@ CEntity::~CEntity()
 * @author: Callan Moore
 * @parameter: _kiSpriteID: Integer value used to locate the sprites image when initialising the sprite
 * @parameter: _kiMaskID: Integer value to locate the sprites mask when initialising the sprite
-* @parameter: _iMaxFrames: The The maximum number of frames for the sprite to have
+* @parameter: _iNumFrames: The  number of frames the sprite has
 * @return: bool: always returns true
 ********************/
 bool CEntity::Initialise(const int _kiSpriteID, const int _kiMaskID, int _iNumFrames)

@@ -18,14 +18,13 @@
 
 #pragma once
 
+#if !defined(__ENTITY_H__)
+#define __ENTITY_H__
+
 // Local Includes
 #include "resource.h"
 #include "Sprite.h"
 #include "Utilities.h"
-
-
-#if !defined(__ENTITY_H__)
-#define __ENTITY_H__
 
 // Prototypes
 class CSprite;
@@ -39,12 +38,16 @@ public:
 	virtual bool Initialise(const int _kiSpriteID, const int _kiMaskID, int _iNumFrames);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
-	void SetX(float _f);
-	void SetY(float _f);
+
+	// Getters
 	float GetX() const;
 	float GetY() const;
 	float GetHeight() const;
 	float GetWidth() const;
+
+	// Setters
+	void SetX(float _f);
+	void SetY(float _f);
 
 private:
 	// Disallowing copies
@@ -54,6 +57,7 @@ private:
 	// Member Variables
 protected:
 	CSprite* m_pSprite;
+
 	float m_fX;
 	float m_fY;
 };

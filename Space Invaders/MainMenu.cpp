@@ -9,15 +9,21 @@
 * File Name : Leave.cpp
 * Description : Implementation file for the Level class
 * Author :	Jc Fowles
-* Mail :	Jc.Fowles@mediadesign.school.nz	
+*         	Callan Moore
+* Mail   :	Jc.Fowles@mediadesign.school.nz	
+*		 :  Callan.moore@mediadesign.school.nz	
 */
 
 // This Include
 #include "MainMenu.h"
 
-
+/***********************
+* CMainMenu: Constructor for the MainMenu Class
+* @author: Jc Fowles
+********************/
 CMainMenu::CMainMenu(void)
 {
+	// Initial Values
 	m_iWidth = 0;
 	m_iHeight = 0;
 	m_pPlayerShip = 0;
@@ -29,14 +35,29 @@ CMainMenu::CMainMenu(void)
 
 	m_iToggle = 0;
 
+	// Player Instructions
 	m_strMove = "Move: <- and -> ";
 	m_strShoot = "Shoot: SpaceBar";
 	m_strShootToStart = "Shoot To Start";
 }
 
-
+/***********************
+* ~CMainMenu: Destructor for the MainMenu Class
+* @author: Callan Moore
+********************/
 CMainMenu::~CMainMenu(void)
 {
+	delete m_pPlayerShip;
+	m_pPlayerShip = 0;
+
+	delete m_pAlienStart;
+	m_pAlienStart = 0;
+
+	delete m_pAlienExit;
+	m_pAlienExit = 0;
+
+	delete m_pAlienTitle;
+	m_pAlienTitle = 0;
 }
 
 /***********************
@@ -55,39 +76,43 @@ bool CMainMenu::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_iWidth = _iWidth;
 	m_iHeight = _iHeight;
 
-	//Player Ship creation and positioning
+	// Create Player Ship
 	m_pPlayerShip = new CPlayerShip();
 	VALIDATE(m_pPlayerShip->Initialise());
-	//position based: x middle of image
-	//				  y top of image
-	m_pPlayerShip->SetX(_iWidth/2.0f);  // from the left
-	m_pPlayerShip->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
-	//Projectile creation and positioning
+	// Set initial Positioning
+	m_pPlayerShip->SetX(_iWidth/2.0f); 
+	m_pPlayerShip->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight())); 
+
+	//Projectile creation
 	const float fBallVelY = 75.0f;
 	m_pProjectile = &(CPlayerProjectile::GetInstance());
-	VALIDATE(m_pProjectile->Initialise(m_iWidth / 2.0f, m_iHeight / 2.0f,  fBallVelY));
-	//position based: x middle of image
-	//				  y top of image
-	m_pProjectile->SetX(_iWidth/2.0f);  // from the left
-	m_pProjectile->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
+	// Set initial Positioning
+	m_pProjectile->SetX(_iWidth/2.0f);  
+	m_pProjectile->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  
 
+	// Create Start sprite
 	m_pAlienStart = new CAlien;
 	VALIDATE(m_pAlienStart->Initialise(4));
 
+	// Set initial Positioning
 	m_pAlienStart->SetX(250);
 	m_pAlienStart->SetY(400);
 
+	// Create Exit Sprite
 	m_pAlienExit = new CAlien;
 	VALIDATE(m_pAlienExit->Initialise(5));
 
+	// Set initial Positioning
 	m_pAlienExit->SetX(649);
 	m_pAlienExit->SetY(400);
 
+	// Create Title
 	m_pAlienTitle = new CAlien;
 	VALIDATE(m_pAlienTitle->Initialise(6));
 
+	// Set initial Positioning
 	m_pAlienTitle->SetX(448);
 	m_pAlienTitle->SetY(150);
 	 

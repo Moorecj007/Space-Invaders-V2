@@ -21,6 +21,9 @@
 ********************/
 CBarrier::CBarrier(void)
 {
+	m_iHealth = 24;
+	m_iNumFrames = 6;
+	m_bAlive = true;
 }
 
 /***********************
@@ -40,11 +43,6 @@ CBarrier::~CBarrier(void)
 ********************/
 bool CBarrier::Initialise(float _fX, float _fY)
 {
-	m_iHealth = 24;
-	m_iImageIndex = 5;
-	m_iNumFrames = 6;
-	m_bAlive = true;
-
 	m_iMaskID = IDB_MASK_BARRIER;
 	m_iSpriteID = IDB_SPRITE_BARRIER;
 
@@ -64,6 +62,7 @@ bool CBarrier::Initialise(float _fX, float _fY)
 ********************/
 void CBarrier::Draw()
 {
+	// Draw only if the Barrier is alive
 	if( m_bAlive == true)
 	{
 		CEntity::Draw();
@@ -78,6 +77,7 @@ void CBarrier::Draw()
 ********************/
 void CBarrier::Process(float _fDeltaTick)
 {
+	// Process only if the Barrier is alive
 	if (m_bAlive)
 	{	
 		CEntity::Process(_fDeltaTick);
@@ -93,6 +93,7 @@ void CBarrier::DecreaseHealth()
 {
 	m_iHealth--;
 
+	// Change the image(frame) of the Barrier based upon its remaining health
 	if( m_iHealth == 0)
 	{
 		m_bAlive = false;
@@ -133,6 +134,11 @@ bool CBarrier::IsAlive()
 	return m_bAlive;
 }
 
+/***********************
+* ResetHealth: Reset the Barrier to initial values
+* @author: Callan Moore
+* @return: void
+********************/
 void CBarrier::ResetHealth()
 {
 	m_iHealth = 24;

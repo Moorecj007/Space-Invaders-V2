@@ -34,15 +34,17 @@ public:
 	bool Initialise(int _iResourceID, int _iMaskResourceID, int _iNumFrames);
 	void Draw();
 	void Process(float _fDeltaTick);
+
+	// Getters
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetX() const;
 	int GetY() const;
+	int GetFrame(); 
+
+	// Setters
 	void SetX(int _i);
 	void SetY(int _i);
-	void TranslateRelative(int _iX, int _iY);
-	void TranslateAbsolute(int _iX, int _iY);
-	int GetFrame(); 
 	void SetFrame(int _iNewFrame);
 
 private:
@@ -54,14 +56,16 @@ private:
 protected:
 	int m_iX;
 	int m_iY;
+	int m_iFrame;
+	int m_iNumFrames;
+
 	HBITMAP m_hSprite;
 	HBITMAP m_hMask;
 	BITMAP m_bitmapSprite;
 	BITMAP m_bitmapMask;
+
 	static HDC s_hSharedSpriteDC;
 	static int s_iRefCount;
-	int m_iFrame;
-	int m_iNumFrames;
 };
 
 #endif // __SPRITE_H__

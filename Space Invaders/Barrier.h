@@ -14,8 +14,6 @@
 
 #pragma once
 
-// Library Includes
-
 // Local Includes
 #include "Entity.h"
 
@@ -24,14 +22,16 @@ class CBarrier : public CEntity
 	// Member Functions
 public:
 	CBarrier(void);
-	~CBarrier(void);
+	virtual ~CBarrier(void);
 	virtual bool Initialise(float _fX, float _fY);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
 
-	void DecreaseHealth();
 	bool IsAlive();
+
+	void DecreaseHealth();
 	void ResetHealth();
+
 private:
 	// Disallowing copies
 	CBarrier(const CBarrier& _kr);
@@ -41,10 +41,9 @@ private:
 private:
 	int m_iSpriteID;
 	int m_iMaskID;
-
 	int m_iHealth;
-	int m_iImageIndex;
 	int m_iNumFrames;
+
 	bool m_bAlive;
 };
 

@@ -60,6 +60,8 @@ CGame::~CGame()
 	m_pBackBuffer = 0;
 	delete m_pClock;
 	m_pClock = 0;
+	delete m_pMenu;
+	m_pMenu = 0;
 }
 
 /***********************
@@ -85,8 +87,8 @@ bool CGame::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeig
 	m_pMenu = new CMainMenu();
 	VALIDATE(m_pMenu->Initialise(_iWidth, _iHeight, _hWnd));
 
+	ShowCursor(false);
 
-	//ShowCursor(false);
 	return (true);
 }
 
@@ -99,19 +101,18 @@ bool CGame::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeig
 void CGame::Draw()
 {
 	m_pBackBuffer->Clear();
-	// Do all the game’s drawing here...
-	//m_pLevel->Draw();
-	//m_pMenu->Draw();
-	//m_pBackBuffer->Present();
+
 	switch(m_iLayout)
 	{
 	case 0:
 		{
+			// Display Main Menu Screen
 			m_pMenu->Draw();
 		}
 		break;
 	case 1:
 		{
+			// Display Game Play Screen
 			m_pLevel->Draw();
 		}
 		break;
@@ -121,9 +122,10 @@ void CGame::Draw()
 }
 
 /***********************
-* Process: All the game logic will be proccesed here
+* Process: All the game logic will be processed here
 * @author: Asma Shakil
-* @parameter: _fDeltaTick: How long it takes to do the procces
+* @author: Jc Fowles
+* @parameter: _fDeltaTick: The time elapsed during the last frame
 * @return: void
 ********************/
 void CGame::Process(float _fDeltaTick)
@@ -132,20 +134,18 @@ void CGame::Process(float _fDeltaTick)
 	{
 	case 0:
 		{
+			// Process the Main Menu Screen
 			m_pMenu->SetHiScore(GetHighScore());
 			m_pMenu->Process(_fDeltaTick);
 		}
 		break;
 	case 1:
 		{
+			// Process the Game Play Screen
 			m_pLevel->Process(_fDeltaTick);
 		}
 		break;
 	}
-
-	// Process all the game’s logic here.
-	//m_pLevel->Process(_fDeltaTick);
-	//m_pMenu->Process(_fDeltaTick);
 }
 
 /***********************
@@ -211,7 +211,7 @@ CLevel* CGame::GetLevel()
 /***********************
 * GetMenu: Returns a pointer to the Main Menu. 
 * @author: Jc Fowles
-* @return: CMainMenu*: pointer to the level
+* @return: CMainMenu*: pointer to the Main Menu
 ********************/
 CMainMenu* CGame::GetMenu()
 {
@@ -239,29 +239,31 @@ HWND CGame::GetWindow()
 }
 
 /***********************
-* ExecuteOneFrame: Executes a single frame for game process, 
-* @author: Asma Shakil
+* SetLayout: Sets the Layout to another
+* @author: Jc Fowles
+* @parameter: _iLayout: Integer representing the new Layout
 * @return: void
 ********************/
-//void CGame::MainMenu()
-//{
-//	float fDT = m_pClock->GetDeltaTick();
-//	Process(fDT);
-//	Draw();
-//	m_pClock->Process();
-//	Sleep(1);
-//}
-
 void CGame::SetLayout(int _iLayout)
 {
 	m_iLayout = _iLayout;
 }
 
+/***********************
+* GetLayout: Retrieves the current Layout representation as an integer
+* @author: Jc Fowles
+* @return: int: Integer reperesenting the current layout
+********************/
 int CGame::GetLayout()
 {
 	return m_iLayout;
 }
 
+/***********************
+* GetHighScore: Retrieves the current Hi Score
+* @author: Jc Fowles
+* @return: string: 
+********************/
 string CGame::GetHighScore()
 {
 	return m_pLevel->GetHighScore();

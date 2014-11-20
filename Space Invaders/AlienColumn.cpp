@@ -9,7 +9,9 @@
 * File Name : AlienColumn.cpp
 * Description : Implementation file for the AlienColumn class
 * Author :	Callan Moore
+*			Jc Fowles
 * Mail :	Callan.moore@mediadesign.school.nz	
+*			Jc.fowles@mediadesign.school.nz	
 */
 
 // This Includes
@@ -30,22 +32,19 @@ CAlienColumn::CAlienColumn(void)
 ********************/
 CAlienColumn::~CAlienColumn(void)
 {
-	vector<CAlien*>::iterator iterAliens = m_vecpAliens->begin();
-	vector<CAlien*>::iterator iterAliensEnd = m_vecpAliens->end();
-
-	while( iterAliens != iterAliensEnd)
+	// Delete all Aliens
+	while( m_vecpAliens->empty() == false)
 	{
-		delete (*iterAliens);
-		(*iterAliens) = 0;
-
-		iterAliens++;
+		delete (*m_vecpAliens).back();
+		(*m_vecpAliens).back() = 0;
+		(*m_vecpAliens).pop_back();
 	}
 	delete m_vecpAliens;
 	m_vecpAliens = 0;
 }
 
 /***********************
-* Initialise: Initialise the AlienColumn with all its member variables
+* Initialise: Initialise the AlienColumn with all its member variables and create the Aliens
 * @author: Callan Moore
 * @parameter: _fX: The X coordinate that the column starts at
 * @parameter: _fY: The Y coordinate that the top of the column starts at
@@ -53,6 +52,7 @@ CAlienColumn::~CAlienColumn(void)
 ********************/
 bool CAlienColumn::Initialise(float _fX, float _fY)
 {
+	// Create five Aliens in the column with a 1, 2, 2 pattern
 	CAlien* pTempAlien;
 	pTempAlien = new CAlien;
 	VALIDATE(pTempAlien->Initialise(3));
@@ -74,6 +74,7 @@ bool CAlienColumn::Initialise(float _fX, float _fY)
 	float fCurrentX = _fX;
 	float fCurrentY = _fY;
 
+	// Set the Starting position of all Aliens in the column
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
 		((*m_vecpAliens)[i])->SetX(fCurrentX);
@@ -93,6 +94,7 @@ bool CAlienColumn::Initialise(float _fX, float _fY)
 ********************/
 void CAlienColumn::Draw()
 {
+	// Draw each Alien in the column
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
 		((*m_vecpAliens)[i])->Draw();
@@ -107,6 +109,7 @@ void CAlienColumn::Draw()
 ********************/
 void CAlienColumn::Process(float _fDeltaTick)
 {
+	// Process each Alien in the colum
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
 		((*m_vecpAliens)[i])->Process(_fDeltaTick);
@@ -114,13 +117,14 @@ void CAlienColumn::Process(float _fDeltaTick)
 }
 
 /***********************
-* Move: Moves the AlienColumn
+* Move: Moves the AlienColumn horizontally
 * @author: Callan Moore
 * @parameter: _rbDirection: Movement direction of the Aliens
 * @return: void
 ********************/
 void CAlienColumn::Move(bool& _rbDirection)
 {
+	// Move Each Alien in the column
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
 		((*m_vecpAliens)[i])->Move(_rbDirection);
@@ -134,6 +138,7 @@ void CAlienColumn::Move(bool& _rbDirection)
 ********************/
 void CAlienColumn::MoveDown()
 {
+	// Move Each Alien in the column
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
 		((*m_vecpAliens)[i])->MoveDown();
@@ -147,6 +152,8 @@ void CAlienColumn::MoveDown()
 ********************/
 bool CAlienColumn::IsAlive() const
 {
+	// Checks each Alien in the column
+	// Returns true if any one of them is alive
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
 		if( (*m_vecpAliens)[i]->IsAlive())
@@ -176,15 +183,15 @@ void CAlienColumn::ToggleAnimation()
 {
 	for( unsigned int i = 0; i < m_vecpAliens->size(); i++)
 	{
-		if( (*m_vecpAliens)[i]->IsAlive())
-		{
+		//if( (*m_vecpAliens)[i]->IsAlive())
+		//{
 			(*m_vecpAliens)[i]->ToggleAnimation();
-		}
+		//}
 	}
 }
 
 /***********************
-* BelowLoseThreshold: Check if the bottom Alien of the column is below the lose threshold (At the planet)
+* BelowLoseThreshold: Check if the bottom Alien of the column is below the lose threshold 
 * @author: Callan Moore
 * @return: bool: True if the Bottom most Alien is below the threshold
 ********************/
@@ -202,6 +209,11 @@ bool CAlienColumn::BelowLoseThreshold()
 	return false;
 }
 
+/***********************
+* ReturnLowest: Finds the bottom most Alien still alive in the column
+* @author: Jc Fowles
+* @return: CAlien*: pointer to the bottom most Alien
+********************/
 CAlien* CAlienColumn::ReturnLowest()
 {
 	for( int i = static_cast<int>(m_vecpAliens->size() - 1); i >= 0 ; i--)

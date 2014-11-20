@@ -28,17 +28,22 @@ class CAlienColumn
 	// Member Functions
 public:
 	CAlienColumn(void);
-	~CAlienColumn(void);
+	virtual ~CAlienColumn(void);
 	virtual bool Initialise( float _fX, float _fY);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
+
 	void Move(bool& _rbDirection);
 	void MoveDown();
-	bool IsAlive() const;
-	vector<CAlien*>* GetAliens();
 	void ToggleAnimation();
+
+	bool IsAlive() const;
 	bool BelowLoseThreshold();
+
 	CAlien* ReturnLowest();
+
+	// Getters
+	vector<CAlien*>* GetAliens();
 
 	// Member Variables
 private:

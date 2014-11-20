@@ -71,9 +71,51 @@ CLevel::CLevel()
 ********************/
 CLevel::~CLevel()
 {
-	//ship
-	//aliens columns
-	//player projectile
+	delete m_pPlayerShip;
+	m_pPlayerShip = 0;
+
+	//delete m_pProjectile;
+	//m_pProjectile = 0;
+
+	m_pProjectile->DestroyInstance();
+	m_pProjectile = 0;
+
+	// Delete all Alien Columns
+	while( m_pAlienColumns->empty() == false)
+	{
+		delete (*m_pAlienColumns).back();
+		(*m_pAlienColumns).back() = 0;
+		(*m_pAlienColumns).pop_back();
+	}
+	delete m_pAlienColumns;
+	m_pAlienColumns = 0;
+
+	// Delete all Barriers
+	while( m_pBarriers->empty() == false)
+	{
+		delete (*m_pBarriers).back();
+		(*m_pBarriers).back() = 0;
+		(*m_pBarriers).pop_back();
+	}
+	delete m_pBarriers;
+	m_pBarriers = 0;
+
+	// Delete Mystery Ship if it exists
+	if( m_pMysteryShip != 0)
+	{
+		delete m_pMysteryShip;
+		m_pMysteryShip = 0;
+	}
+
+	// Delete all Alien Projectiles
+	while( m_pAlienProjectiles->empty() == false)
+	{
+		delete (*m_pAlienProjectiles).back();
+		(*m_pAlienProjectiles).back() = 0;
+		(*m_pAlienProjectiles).pop_back();
+	}
+	delete m_pAlienProjectiles;
+	m_pAlienProjectiles = 0;
 }
 
 /***********************
@@ -126,8 +168,6 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 		fCurrentX += (m_fColumnWidth + m_iXGap);
 		m_fAlienLastFired.push_back(0);
 	}
-
-
 
 	// Mystery Ship Variable initialisations
 	m_pMysteryShip = 0;

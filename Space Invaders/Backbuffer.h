@@ -16,7 +16,6 @@
 *			Jc.fowles@mediadesign.school.nz		
 */
 
-
 #pragma once
 
 #if !defined(__BACKBUFFER_H__)
@@ -33,11 +32,15 @@ public:
 	CBackBuffer();
 	~CBackBuffer();
 	bool Initialise(HWND _hWnd, int _iWidth, int _iHeight);
+
+	void Clear();
+	void Present();
+
+	// Getters
 	HDC GetBFDC() const;
 	int GetHeight() const;
 	int GetWidth() const;
-	void Clear();
-	void Present();
+	
 private:
 	// Disallowing copies
 	CBackBuffer(const CBackBuffer& _kr);
@@ -49,9 +52,9 @@ protected:
 	HDC m_hDC;
 	HBITMAP m_hSurface;
 	HBITMAP m_hOldObject;
+
 	int m_iWidth;
 	int m_iHeight;
-
 };
 
 #endif // __BACKBUFFER_H__

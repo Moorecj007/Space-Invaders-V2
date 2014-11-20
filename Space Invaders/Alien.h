@@ -27,18 +27,24 @@ class CAlien : public CEntity
 	// Member Functions
 public:
 	CAlien(void);
-	~CAlien(void);
+	virtual ~CAlien(void);
 	virtual bool Initialise(int _iType);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
-	void SetAlive(bool _b);
-	bool IsAlive() const;
+
 	void Move(bool& _rbDirection);
 	void MoveDown();
 	void ToggleAnimation();
+
+	bool IsAlive() const;
 	bool BelowLoseThreshold();
+
+	// Getters
 	int GetPoints();
 
+	// Setters
+	void SetAlive(bool _b);
+	
 private:
 	// Disallowing copies
 	CAlien(const CAlien& _kr);
@@ -47,11 +53,11 @@ private:
 	// Member Variables
 protected:
 	int m_iPointValue;
-	bool m_bAlive;
 	int m_iMaskID;
 	int m_iSpriteID;
 	int m_iNumFrames;
 
+	bool m_bAlive;
 };
 
 #endif // __ALIEN_H__

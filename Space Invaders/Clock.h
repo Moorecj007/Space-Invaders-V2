@@ -21,12 +21,6 @@
 #if !defined(__CLOCK_H__)
 #define __CLOCK_H__
 
-// Library Includes
-// Local Includes
-// Types
-// Constants
-    
-// Prototypes
 class CClock
 {
 	// Member Functions
@@ -35,6 +29,8 @@ public:
 	~CClock();
 	bool Initialise();
 	void Process();
+
+	// Getters
 	float GetDeltaTick();
 
 private:

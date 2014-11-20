@@ -27,13 +27,15 @@ class CMysteryShip: public CEntity
 	// Member Functions
 public:
 	CMysteryShip(void);
-	~CMysteryShip(void);
+	virtual ~CMysteryShip(void);
 	virtual bool Initialise();
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
-	void Move();
-	int GetPoints();
 
+	void Move();
+
+	// Getters
+	int GetPoints();
 
 	private:
 	// Disallowing copies

@@ -15,9 +15,7 @@
 #pragma once
 
 #if !defined(__PLAYERPROJECTILE_H__)
-
 #define __PLAYERPROJECTILE_H__
-// Library Includes
 
 // Local Includes
 #include "entity.h"
@@ -25,17 +23,10 @@
 #include "resource.h"
 #include "utilities.h"
 
-// Types
-
-// Constants
-
-// Prototypes
 class CPlayerProjectile : public CEntity
 {
 	// Member Functions
 public:
-	
-
 	// Singleton Methods
 	static CPlayerProjectile& GetInstance();
 	static void DestroyInstance();
@@ -45,13 +36,17 @@ public:
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
 
-	float GetVelocity() const;
-    void SetVelocity(float _fY);
-		
 	bool Fired();
+
+	// Getters
+	float GetVelocity() const;
+
+	// Setters
+    void SetVelocity(float _fY);
 	void setFired(bool _bFired);
 	
 private:
+	// Disallowing Copies
 	CPlayerProjectile(void);
 	CPlayerProjectile(const CPlayerProjectile& _kr);
 	CPlayerProjectile& operator= (const CPlayerProjectile& _kr);
@@ -59,17 +54,13 @@ private:
 	// Member Variables
 protected:
 	float m_fVelocity;
+
 	bool m_bFired;
 
 	int m_iNumFrames;
 
-	//float m_fTimeElapsed;
-	//float m_fLastMove;
-
 	// Singleton Instance
 	static CPlayerProjectile* s_pProjectile;
-
-
 };
 
 #endif //__PLAYERPROJECTILE_H__

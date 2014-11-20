@@ -27,11 +27,9 @@
 #include <string>
 
 // Macros
-	// Check to see if "a" exists 
-#define VALIDATE(a) if (!a) return (false)
+#define VALIDATE(a) if (!a) return (false)	// Check to see if "a" exists 
 #define RIGHT true
 #define LEFT false
-
 
 /***********************
 * ToString: Returns the printable string of the passed in object  
@@ -49,13 +47,10 @@ std::string ToString(const T& _value)
 
 struct TRectangle
 {
-	float m_fXL;
-	float m_fYT;
-	float m_fXR;
-	float m_fTB;
+	float m_fXL;	// X Value Left side
+	float m_fYT;	// Y Value Bottom
+	float m_fXR;	// X Value Right side
+	float m_fTB;	// Y Value Bottom
 };
-
-
-
 
 #endif // __UTILITIES_H__

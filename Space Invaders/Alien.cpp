@@ -37,7 +37,7 @@ CAlien::~CAlien(void)
 * Initialise: Initialise the Alien using Entities Initialise with the its Sprite and Mask IDs
 * @author: Callan Moore
 * @parameter: _iType: Integer representing the type of Alien to initialise
-* @return: bool: Always returns true
+* @return: bool: Return true if successful
 ********************/
 bool CAlien::Initialise(int _iType)
 {
@@ -45,6 +45,7 @@ bool CAlien::Initialise(int _iType)
 	{
 	case (1):
 		{
+			// Bottom two rows of Aliens
 			m_iMaskID = IDB_MASKA_ALIEN1;
 			m_iSpriteID = IDB_SPRITEA_ALIEN1;
 			m_iPointValue = 10;
@@ -52,6 +53,7 @@ bool CAlien::Initialise(int _iType)
 		break;
 	case (2):
 		{
+			// Middle two rows of Aliens
 			m_iMaskID = IDB_MASKA_ALIEN2;
 			m_iSpriteID = IDB_SPRITEA_ALIEN2;
 			m_iPointValue = 20;
@@ -59,6 +61,7 @@ bool CAlien::Initialise(int _iType)
 		break;
 	case (3):
 		{
+			// Top Single Row of Aliens
 			m_iMaskID = IDB_MASKA_ALIEN3;
 			m_iSpriteID = IDB_SPRITEA_ALIEN3;
 			m_iPointValue = 40;
@@ -66,6 +69,7 @@ bool CAlien::Initialise(int _iType)
 		break;
 	case (4):
 		{
+			// Menu Start Image
 			m_iMaskID = IDB_MASK_START;
 			m_iSpriteID = IDB_SPRITE_START;
 			m_iPointValue = 0;
@@ -73,6 +77,7 @@ bool CAlien::Initialise(int _iType)
 		break;
 	case (5):
 		{
+			// Menu Exit Image
 			m_iMaskID = IDB_MASK_EXIT;
 			m_iSpriteID = IDB_SPRITE_EXIT;
 			m_iPointValue = 0;
@@ -80,6 +85,7 @@ bool CAlien::Initialise(int _iType)
 		break;
 	case (6):
 		{
+			// Menu Title Image
 			m_iMaskID = IDB_MASK_TITLE;
 			m_iSpriteID = IDB_SPRITE_TITLE;
 			m_iPointValue = 0;
@@ -93,12 +99,13 @@ bool CAlien::Initialise(int _iType)
 }
 
 /***********************
-* Draw: Draws the Sprite using Entities Draw function only if the Alien is alive
+* Draw: Draws the Alien using Entities Draw function only if the Alien is alive
 * @author: Callan Moore
 * @return: void
 ********************/
 void CAlien::Draw()
 {
+	// Only draw Alien if it is currently alive
 	if (m_bAlive)
 	{
 		CEntity::Draw();
@@ -113,6 +120,7 @@ void CAlien::Draw()
 ********************/
 void CAlien::Process(float _fDeltaTick)
 {
+	// Only process Alien if it is currently alive
 	if (m_bAlive)
 	{	
 		CEntity::Process(_fDeltaTick);
@@ -122,7 +130,7 @@ void CAlien::Process(float _fDeltaTick)
 /***********************
 * SetAlive: Sets the Aliens Alive state to the input state
 * @author: Callan Moore
-* @parameter: _bAlive: boolean value to set the state of the Alien (alive of dead)
+* @parameter: _bAlive: boolean value to set the state of the Alien (alive or dead)
 * @return: void
 ********************/
 void CAlien::SetAlive(bool _bAlive)
@@ -141,13 +149,14 @@ bool CAlien::IsAlive() const
 }
 
 /***********************
-* Move: Moves the Alien in its current direction. Drops down and reverses direction if at screen edge
+* Move: Moves the Alien in its current direction
 * @author: Callan Moore
 * @parameter: _rbDirection: Movement direction of the Aliens
 * @return: void
 ********************/
 void CAlien::Move(bool& _rbDirection)
 {
+	// Only move Alien if it is currently alive
 	if( m_bAlive)
 	{
 		if(_rbDirection == RIGHT)
@@ -168,6 +177,7 @@ void CAlien::Move(bool& _rbDirection)
 ********************/
 void CAlien::MoveDown()
 {
+	// Only move Alien if it is currently alive
 	if( m_bAlive)
 	{
 		CEntity::m_fY += 24;
@@ -185,15 +195,19 @@ void CAlien::ToggleAnimation()
 }
 
 /***********************
-* BelowLoseThreshold: Check if the Alien below the lose threshold (At the planet)
+* BelowLoseThreshold: Check if the Alien below the lose threshold towards the bottom of the screen
 * @author: Callan Moore
 * @return: bool: True if the Alien is below the threshold
 ********************/
 bool CAlien::BelowLoseThreshold()
 {
-	if( CEntity::GetY() > 768)
+	// Only move Alien if it is currently alive
+	if( m_bAlive)
 	{
-		return true;
+		if( CEntity::GetY() > 768)
+		{
+			return true;
+		}
 	}
 	return false;
 }
