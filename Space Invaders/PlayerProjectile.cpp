@@ -151,3 +151,4 @@ void CPlayerProjectile::SetVelocity(float _fY)
 {
     m_fVelocity = _fY;
 }
+

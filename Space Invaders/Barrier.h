@@ -30,6 +30,7 @@ public:
 	virtual void Process(float _fDeltaTick);
 
 	void DecreaseHealth();
+	bool IsAlive();
 
 private:
 	// Disallowing copies

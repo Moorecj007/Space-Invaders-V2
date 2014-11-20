@@ -122,3 +122,13 @@ void CBarrier::DecreaseHealth()
 		CEntity::m_pSprite->SetFrame(5);
 	}
 }
+
+/***********************
+* isAlive: Return if the barrier is alive
+* @author: Callan Moore
+* @return: void
+********************/
+bool CBarrier::IsAlive()
+{
+	return m_bAlive;
+}

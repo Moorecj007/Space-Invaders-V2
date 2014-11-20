@@ -38,7 +38,7 @@ public:
 	vector<CAlien*>* GetAliens();
 	void ToggleAnimation();
 	bool BelowLoseThreshold();
-
+	CAlien* ReturnLowest();
 
 	// Member Variables
 private:

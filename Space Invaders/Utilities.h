@@ -47,4 +47,14 @@ std::string ToString(const T& _value)
 	return (theStream.str());
 }
 
+struct TRectangle
+{
+	float m_fXL;
+	float m_fYT;
+	float m_fXR;
+	float m_fTB;
+};
+
+
+
 #endif // __UTILITIES_H__

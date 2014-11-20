@@ -25,6 +25,7 @@ CPlayerShip::CPlayerShip(void)
 	m_fVelocity = 0.0f;
 	m_bFired = false;
 	m_iNumFrames = 1;
+	m_bDestroy = false;
 }
 
 /***********************
@@ -108,4 +109,20 @@ float CPlayerShip::GetVelocity() const
 void CPlayerShip::SetVelocity(float _fX)
 {
     m_fVelocity = _fX;
+}
+
+/***********************
+* SetDestroy: Sets the projectile to be destroyed or not
+* @author: Jc Fowles
+* @parameter: _bDestroy: True if to be destroyed
+* @return: void
+********************/
+void CPlayerShip::SetDestroyed(bool _bDestroy)
+{
+	m_bDestroy = _bDestroy;
+}
+
+bool CPlayerShip::GetDestroyed()
+{
+	return m_bDestroy;
 }

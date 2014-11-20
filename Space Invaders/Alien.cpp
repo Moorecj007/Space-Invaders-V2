@@ -22,7 +22,7 @@
 CAlien::CAlien(void)
 {
 	m_bAlive = true;
-	m_iNumFrames = 2;
+	m_iNumFrames = 1;
 }
 
 /***********************

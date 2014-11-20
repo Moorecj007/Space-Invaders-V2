@@ -47,9 +47,14 @@ public:
 	bool Fired();
 	void setFired(bool _bFired);
 
+	void SetDestroyed(bool _bDestroy);
+	bool GetDestroyed();
+
 protected:
 	float m_fVelocity;
 	bool m_bFired;
+
+	bool m_bDestroy;
 private:
 	CPlayerShip(const CPlayerShip& _kr);
 	CPlayerShip& operator= (const CPlayerShip& _kr);

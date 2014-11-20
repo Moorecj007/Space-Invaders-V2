@@ -201,3 +201,15 @@ bool CAlienColumn::BelowLoseThreshold()
 	}
 	return false;
 }
+
+CAlien* CAlienColumn::ReturnLowest()
+{
+	for( int i = static_cast<int>(m_vecpAliens->size() - 1); i >= 0 ; i--)
+	{
+		if( (*m_vecpAliens)[i]->IsAlive())
+		{
+			return (*m_vecpAliens)[i];
+		}
+	}
+	return (0);
+}

@@ -98,3 +98,19 @@ void CAlienProjectile::SetVelocity(float _fY)
 {
     m_fVelocity = _fY;
 }
+
+/***********************
+* SetDestroy: Sets the projectile to be destroyed or not
+* @author: Jc Fowles
+* @parameter: _bDestroy: True if to be destroyed
+* @return: void
+********************/
+void CAlienProjectile::SetDestroyed(bool _bDestroy)
+{
+	m_bDestroy = _bDestroy;
+}
+
+bool CAlienProjectile::GetDestroyed()
+{
+	return m_bDestroy;
+}

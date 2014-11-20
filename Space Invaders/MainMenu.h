@@ -25,6 +25,7 @@
 #include <locale>
 #include "Level.h"
 #include "Utilities.h"
+#include "PlayerProjectile.h"
 
 
 
@@ -52,6 +53,8 @@ public:
 
 	void PlayerInput();
    // CPaddle* GetPaddle() const;
+	CPlayerShip* GetShip();
+	CPlayerProjectile* GetShipProj();
 
     //int GetBricksRemaining() const;
 

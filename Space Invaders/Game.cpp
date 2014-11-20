@@ -208,6 +208,16 @@ CLevel* CGame::GetLevel()
 }
 
 /***********************
+* GetMenu: Returns a pointer to the Main Menu. 
+* @author: Jc Fowles
+* @return: CMainMenu*: pointer to the level
+********************/
+CMainMenu* CGame::GetMenu()
+{
+	return (m_pMenu);
+}
+
+/***********************
 * GetAppInstance: Returns the current instance of the programe/application
 * @author: Asma Shakil
 * @return: HINSTANCE: The current instance handler

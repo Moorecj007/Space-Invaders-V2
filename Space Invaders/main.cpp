@@ -197,10 +197,13 @@ int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdl
 	g_hInstance = _hInstance;
 	g_iCmdshow = _iCmdshow;
 
+	const int iOriginalW = 224;
+	const int iOriginalH = 256;
+
 	MSG msg;
 	ZeroMemory(&msg, sizeof(MSG));
-	const int kiWidth = 672;
-	const int kiHeight = 768;
+	const int kiWidth = 4*iOriginalW;
+	const int kiHeight = 4*iOriginalH;
 	HWND hwnd = CreateAndRegisterWindow(_hInstance, kiWidth, kiHeight, "Space Invaders");
 
 	

@@ -50,6 +50,7 @@ public:
 	int GetLayout();
 
 	CLevel* GetLevel();
+	CMainMenu* GetMenu();
 
 	void GameOverWon();
 	void GameOverLost();

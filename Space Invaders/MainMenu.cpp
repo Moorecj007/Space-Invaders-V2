@@ -64,6 +64,7 @@ bool CMainMenu::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_pProjectile->SetX(_iWidth/2.0f);  // from the left
 	m_pProjectile->SetY(_iHeight - ( 2 * m_pPlayerShip->GetHeight()));  // from the bottom of the screen
 
+	return true;
 	
 }
 
@@ -91,15 +92,24 @@ void CMainMenu::Process(float _fDeltaTick)
 {
 	PlayerInput();
 
+	if(m_pPlayerShip->Fired() == false) 
+	{
+		m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
+	}
+	
+
 	if(m_pPlayerShip->Fired()) 
 	{
 		m_pProjectile->Process(_fDeltaTick);
 	}
 	
+	
+
 	m_pPlayerShip->Process(_fDeltaTick);
 	
 	if(ShipProjectileCollision())
 	{
+		m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
 		CGame::GetInstance().SetLayout(1);
 	}
 
@@ -197,7 +207,7 @@ bool CMainMenu::ShipProjectileCollision()
 
 
 /***********************
-* DrawScore: Draws the score to the buffer
+* DrawScore: Draws the teaching text 
 * @author: Jc Fowles
 * @return: void
 ********************/
@@ -220,4 +230,24 @@ void CMainMenu::DrawText()
     kiY = m_iHeight - 50;
 
 	TextOut(hdc, kiX, kiY ,m_strShoot.c_str(), static_cast<int>(m_strShoot.size()));
+}
+
+/***********************
+* GetShip: Return the Ship beloning to main menu
+* @author: Jc Fowles
+* @return: void
+********************/
+CPlayerShip* CMainMenu::GetShip()
+{
+	return m_pPlayerShip;
+}
+
+/***********************
+* GetShip: Return the Ship beloning to main menu
+* @author: Jc Fowles
+* @return: void
+********************/
+CPlayerProjectile* CMainMenu::GetShipProj()
+{
+	return m_pProjectile;
 }

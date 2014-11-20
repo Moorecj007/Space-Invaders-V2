@@ -142,6 +142,7 @@
     <None Include="Assets\Mask_Barrier.bmp" />
     <None Include="Assets\Mask_PlayerShip.bmp" />
     <None Include="Assets\Mask_Projectile.bmp" />
+    <None Include="Assets\Mask_Title.bmp" />
     <None Include="Assets\SpriteA_Alien1.bmp" />
     <None Include="Assets\SpriteA_Alien2.bmp" />
     <None Include="Assets\SpriteA_Alien3.bmp" />
@@ -151,6 +152,7 @@
     <None Include="Assets\Sprite_Barrier.bmp" />
     <None Include="Assets\Sprite_PlayerShip.bmp" />
     <None Include="Assets\Sprite_Projectile.bmp" />
+    <None Include="Assets\Sprite_Title.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

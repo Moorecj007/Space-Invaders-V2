@@ -31,6 +31,7 @@
 #include "backbuffer.h"
 #include "PlayerShip.h"
 #include "PlayerProjectile.h"
+#include "AlienProjectile.h"
 #include "AlienColumn.h"
 #include "MysteryShip.h"
 #include "Barrier.h"
@@ -59,6 +60,8 @@ public:
 	bool ShipProjectileCollision();
 	bool AlienCollision();
 	bool MysteryShipCollision();
+	bool BarrierCollision();
+	bool ShipCollision();
 
 	void UpdatePlayerScore(int _iScore);
 	int GetPlayerScore();
@@ -69,8 +72,9 @@ public:
 
 	void PlayerInput();
 	void WaveReset();
-
+	bool AlienFire();
 	
+	bool IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRect2);
 
 protected:
 	//void ProcessCheckForWin();
@@ -92,16 +96,30 @@ protected:
 	CPlayerProjectile* m_pProjectile;
 	vector<CAlienColumn*>* m_pAlienColumns;
 	CMysteryShip* m_pMysteryShip;
+
 	vector<CBarrier*>* m_pBarriers;
+
+	vector<CAlienProjectile*>* m_pAlienProjectiles;
+	unsigned int fMaxAlienProjectile;
 	
+
 	float m_fPlayerShipSpeed;
 	float m_fProjectileSpeed;
+
+	float m_fAlienProjectileSpeed;
 	float m_fAlienSpeed;
+	int m_fAlienFireFreq;
+
 	float m_fMysteryShipSpeed;
 
+	
+
 	int m_iScore;
+	int m_iPLayerLives;
+
 	float m_fTimeElapsed;
 	float m_fAlienLastMove;
+	vector<float> m_fAlienLastFired;
 	float m_fMysteryShipLastMove;
 	float m_fMysteryShipSpawnTimer;
 	bool m_bWaveReset;

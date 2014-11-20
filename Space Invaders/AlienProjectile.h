@@ -38,6 +38,9 @@ public:
 	float GetVelocity() const;
     void SetVelocity(float _fY);
 
+	void SetDestroyed(bool _bDestroy);
+	bool GetDestroyed();
+
 private:
 	
 	CAlienProjectile(const CAlienProjectile& _kr);
@@ -46,6 +49,8 @@ private:
 protected:
 	float m_fVelocity;
 	bool m_bFired;
+
+	bool m_bDestroy;
 
 	int m_iNumFrames;
 
