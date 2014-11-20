@@ -1089,3 +1089,94 @@ bool CLevel::GameOver(bool _bGameOver)
 	}
 	return false;
 }
+
+
+
+/***********************
+* SetPlayerProjSpeed: Sets the Players Ships Projectile speed
+* @author: Callan Moore
+* @parameter: _iSpeed: The new Speed
+* @return: void
+********************/
+void CLevel::SetPlayerProjSpeed(float _fSpeed)
+{
+	m_fProjectileSpeed = _fSpeed;
+}
+
+/***********************
+* SetAlienProjSpeed: Sets the Aliens Projectile speed
+* @author: Callan Moore
+* @parameter: _iSpeed: The new Speed
+* @return: void
+********************/
+void CLevel::SetAlienProjSpeed(float _fSpeed)
+{
+	m_fAlienProjectileSpeed = _fSpeed;
+}
+
+/***********************
+* SetPlayerMoveSpeed: Sets the Player Movement speed
+* @author: Callan Moore
+* @parameter: _iSpeed: The new Speed
+* @return: void
+********************/
+void CLevel::SetPlayerMoveSpeed(float _fSpeed)
+{
+	m_fPlayerShipSpeed = _fSpeed;
+}
+
+/***********************
+* SetAlienMoveSpeed: Sets the Alien base Movement speed
+* @author: Callan Moore
+* @parameter: _iSpeed: The new Speed
+* @return: void
+********************/
+void CLevel::SetAlienMoveSpeed(float _fSpeed)
+{
+	m_fAlienSpeed = _fSpeed;
+}
+
+
+
+
+/***********************
+* GetPlayerProjSpeed: Retrieves the base player projectile speed
+* @author: Callan Moore
+* @return: unsigned int: Value for the Speed
+********************/
+float CLevel::GetPlayerProjSpeed()
+{
+	return m_fProjectileSpeed;
+}
+
+/***********************
+* GetAlienProjSpeed: Retrieves the base Alien projectile speed
+* @author: Callan Moore
+* @return: unsigned int: Value for the Speed
+********************/
+float CLevel::GetAlienProjSpeed()
+{
+	return m_fAlienProjectileSpeed;
+}
+
+/***********************
+* GetPlayerMoveSpeed: Retrieves the Player movement speed
+* @author: Callan Moore
+* @return: unsigned int: Value for the Speed
+********************/
+float CLevel::GetPlayerMoveSpeed()
+{
+	return m_fPlayerShipSpeed;
+}
+
+/***********************
+* GetAlienMoveSpeed: Retrieves the base Alien movement speed
+* @author: Callan Moore
+* @return: unsigned int: Value for the Speed
+********************/
+float CLevel::GetAlienMoveSpeed()
+{
+	return m_fAlienSpeed;
+}
+
+

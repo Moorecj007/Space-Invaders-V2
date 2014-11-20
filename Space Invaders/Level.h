@@ -79,6 +79,17 @@ public:
 	int GetPlayerLives();
 	bool IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRect2);
 
+
+	void SetPlayerProjSpeed(float _fSpeed);
+	void SetAlienProjSpeed(float _fSpeed);
+	void SetPlayerMoveSpeed(float _fSpeed);
+	void SetAlienMoveSpeed(float _fSpeed);
+	
+	float GetPlayerProjSpeed();
+	float GetAlienProjSpeed();
+	float GetPlayerMoveSpeed();
+	float GetAlienMoveSpeed();
+
 protected:
 	//void ProcessCheckForWin();
 	//void DrawScore();
@@ -156,6 +167,9 @@ protected:
 	int m_iBarrierBetweenPairGap;
 	float m_fBarrierStartX;
 	float m_fBarrierStartY;
+
+
+	
 
 };
 
