@@ -86,9 +86,7 @@ bool CGame::Initialise(HINSTANCE _hInstance, HWND _hWnd, int _iWidth, int _iHeig
 	VALIDATE(m_pLevel->Initialise(_iWidth, _iHeight, _hWnd));
 	m_pMenu = new CMainMenu();
 	VALIDATE(m_pMenu->Initialise(_iWidth, _iHeight, _hWnd));
-
-	ShowCursor(false);
-
+	
 	return (true);
 }
 

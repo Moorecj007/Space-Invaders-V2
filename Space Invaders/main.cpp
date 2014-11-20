@@ -20,7 +20,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <time.h>
-#include <vld.h>
+//#include <vld.h>
 
 
 //Local Includes
