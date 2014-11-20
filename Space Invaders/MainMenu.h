@@ -53,12 +53,14 @@ public:
 	void DrawText();
 
 	void PlayerInput();
+
+	void SetHiScore(std::string _strHiScore);
   
 	CPlayerShip* GetShip();
 	CPlayerProjectile* GetShipProj();
 
     bool IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRect2);
-
+	void BlinkText(float _fDeltaTick);
 
 protected:
    
@@ -82,9 +84,16 @@ protected:
 
 	float m_fPlayerShipSpeed;
 	float m_fProjectileSpeed;
+	float m_fTimeElapsed;
+	float m_fLastTime;
+
+	int m_iToggle;
 
 	std::string m_strMove;
 	std::string m_strShoot;
+	std::string m_strHiScore;
+	std::string m_strShootToStart;
+
 
 
 private:

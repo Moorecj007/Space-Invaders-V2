@@ -132,3 +132,11 @@ bool CBarrier::IsAlive()
 {
 	return m_bAlive;
 }
+
+void CBarrier::ResetHealth()
+{
+	m_iHealth = 24;
+	m_bAlive = true;
+	CEntity::m_pSprite->SetFrame(5);
+}
+

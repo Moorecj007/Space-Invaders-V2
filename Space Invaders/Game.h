@@ -55,6 +55,9 @@ public:
 	void GameOverWon();
 	void GameOverLost();
 
+	std::string GetHighScore();
+	void SetHighScore();
+
 	bool MainMenu();
 
 	// Singleton Methods
@@ -75,6 +78,8 @@ protected:
 	CLevel* m_pLevel;
 	CMainMenu* m_pMenu;
 	CBackBuffer* m_pBackBuffer;
+
+	
 
 	//Application data
 	HINSTANCE m_hApplicationInstance;

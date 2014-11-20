@@ -68,9 +68,9 @@ public:
 	int GetPlayerScore();
 
 	bool GameOver(bool _bGameOver);
-
+	string GetHighScore();
 	void DrawScore();
-
+	int GetIntHighScore();
 	void UpdateScoreText();
 	void UpdateLivesText();
 	void PlayerInput();
@@ -105,6 +105,8 @@ protected:
 	vector<CAlienProjectile*>* m_pAlienProjectiles;
 	unsigned int fMaxAlienProjectile;
 	
+	void UpdateHiScoreText();
+	
 
 	float m_fPlayerShipSpeed;
 	float m_fProjectileSpeed;
@@ -120,6 +122,9 @@ protected:
 	
 
 	int m_iScore;
+	int m_iExtraLife;
+	int m_iHiScore;
+
 	int m_iPLayerLives;
 	int respawn;
 	int respawnTime;
@@ -135,6 +140,7 @@ protected:
 	
 	string m_strScore;
 	string m_strLives;
+	string m_strHiScore;
 	//WCHAR* m_strScore;
 
 	HWND m_hWnd;

@@ -24,9 +24,14 @@ CMainMenu::CMainMenu(void)
 
 	m_fPlayerShipSpeed = 250.0f;
 	m_fProjectileSpeed = 500.0f;
+	m_fLastTime = 0.0f;
+	m_fTimeElapsed = 0.0f;
+
+	m_iToggle = 0;
 
 	m_strMove = "Move: <- and -> ";
 	m_strShoot = "Shoot: SpaceBar";
+	m_strShootToStart = "Shoot To Start";
 }
 
 
@@ -72,19 +77,19 @@ bool CMainMenu::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	VALIDATE(m_pAlienStart->Initialise(4));
 
 	m_pAlienStart->SetX(250);
-	m_pAlienStart->SetY(500);
+	m_pAlienStart->SetY(400);
 
 	m_pAlienExit = new CAlien;
 	VALIDATE(m_pAlienExit->Initialise(5));
 
 	m_pAlienExit->SetX(649);
-	m_pAlienExit->SetY(500);
+	m_pAlienExit->SetY(400);
 
 	m_pAlienTitle = new CAlien;
 	VALIDATE(m_pAlienTitle->Initialise(6));
 
 	m_pAlienTitle->SetX(448);
-	m_pAlienTitle->SetY(200 );
+	m_pAlienTitle->SetY(150);
 	 
 
 
@@ -116,6 +121,8 @@ void CMainMenu::Draw()
 ********************/
 void CMainMenu::Process(float _fDeltaTick)
 {
+	BlinkText(_fDeltaTick);
+
 	PlayerInput();
 
 	m_pAlienStart->Process(_fDeltaTick);
@@ -262,6 +269,42 @@ void CMainMenu::DrawText()
     kiY = m_iHeight - 50;
 
 	TextOut(hdc, kiX, kiY ,m_strShoot.c_str(), static_cast<int>(m_strShoot.size()));
+
+	kiX = m_iWidth - (10*(static_cast<int>(m_strHiScore.size())) + 10);
+    kiY = static_cast<int>(10);// m_iHeight- 10;
+
+	TextOut(hdc, kiX, kiY, m_strHiScore.c_str(), static_cast<int>(m_strHiScore.size()));
+
+	kiX = m_iWidth/2 - (5*(static_cast<int>(m_strShootToStart.size())) );
+	kiY = static_cast<int>(10);// m_iHeight- 10;
+	
+	TextOut(hdc, kiX, kiY, m_strShootToStart.c_str(), static_cast<int>(m_strShootToStart.size()));
+	
+	
+	
+		
+
+}
+
+void CMainMenu::BlinkText(float _fDeltaTick)
+{
+	m_fTimeElapsed += _fDeltaTick;
+	if((m_fTimeElapsed - m_fLastTime) > 0.5)
+	{
+		if(m_iToggle == 0)
+		{
+			m_strShootToStart =  "";
+			m_iToggle = 1;
+		}
+		else if(m_iToggle == 1)
+		{
+			m_strShootToStart = "Shoot To Start";
+			m_iToggle = 0;
+		}
+
+	
+		m_fLastTime = m_fTimeElapsed;
+	}
 }
 
 /***********************
@@ -292,10 +335,6 @@ CPlayerProjectile* CMainMenu::GetShipProj()
 ********************/
 bool CMainMenu::AlienCollision(CAlien* _Alien, int _iType)
 {
-	
-
-				
-
 	float fProjectileXL = m_pProjectile->GetX() - m_pProjectile->GetWidth()/2;			
 	float fProjectileXR = m_pProjectile->GetX() + m_pProjectile->GetWidth()/2;
 	float fProjectileYT = m_pProjectile->GetY() - m_pProjectile->GetHeight()/2;				
@@ -371,3 +410,9 @@ bool CMainMenu::IsIntersection(const TRectangle& _krRect1, const TRectangle& _kr
 	}
 
 }
+
+void CMainMenu::SetHiScore(string _strHiScore)
+{
+	m_strHiScore = _strHiScore;
+}
+

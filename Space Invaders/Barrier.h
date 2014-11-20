@@ -31,7 +31,7 @@ public:
 
 	void DecreaseHealth();
 	bool IsAlive();
-
+	void ResetHealth();
 private:
 	// Disallowing copies
 	CBarrier(const CBarrier& _kr);

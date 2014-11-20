@@ -32,7 +32,7 @@ CLevel::CLevel()
 	m_fAlienFireFreq = 10;
 	m_fAlienFireFreqOrig = 10;
 	fMaxAlienProjectile = 7;
-
+	
 	m_iWidth = 0;
 	m_iHeight = 0;
 	m_pPlayerShip = 0;
@@ -43,7 +43,8 @@ CLevel::CLevel()
 	m_fMysteryShipLastMove = 0;
 	m_bAlienDirection = RIGHT;
 	m_iScore = 0;
-
+	m_iExtraLife = 0;
+	m_iHiScore = 5000;
 	m_iPLayerLives = 3;
 	respawn = 0;
 	respawnTime = 1000;
@@ -319,6 +320,13 @@ void CLevel::Process(float _fDeltaTick)
 		//respawn++;
 	}
 
+	if(m_iExtraLife >= 100)
+	{
+		m_iPLayerLives += 1;
+		m_iExtraLife = 0;
+	}
+
+
 }
 
 /***********************
@@ -423,8 +431,9 @@ bool CLevel::AlienCollision()
 				{
   					(*Aliens)[k]->SetAlive(false);
 					m_iScore += (*Aliens)[k]->GetPoints();
+					m_iExtraLife += (*Aliens)[k]->GetPoints();
 					m_fAlienSpeed = m_fAlienSpeed - (m_fAlienSpeed/60);
-
+					m_fAlienFireFreq += 15; 
 
 					return true;
 				}
@@ -459,8 +468,9 @@ bool CLevel::MysteryShipCollision()
 	//Check if overlapping
 	if (IsIntersection(rctProjectile,rctMysShip))		
 	{
-		m_iScore += m_pMysteryShip->GetPoints();
-			 
+		int iAddedScore  = m_pMysteryShip->GetPoints();
+		m_iScore += iAddedScore;
+		m_iExtraLife += iAddedScore;
   		delete m_pMysteryShip;
 		m_pMysteryShip =0;
 		m_fMysteryShipSpawnTimer = -10;
@@ -567,6 +577,10 @@ bool CLevel::BarrierAlienCollision()
 ********************/
 bool CLevel::ShipCollision()
 {	
+	if(!(m_pPlayerShip->GetDestroyed()))
+	{
+
+	
 		for(unsigned int i = 0; i < m_pAlienProjectiles->size(); i++)  
 		{
 			CAlienProjectile* AlienProjectile = (*m_pAlienProjectiles)[i];
@@ -597,7 +611,7 @@ bool CLevel::ShipCollision()
 				}
 			}
 		
-	
+	}
 	return false; // if no collision detected return false
 }
 
@@ -626,6 +640,20 @@ void CLevel::UpdateScoreText()
 
 }
 
+void CLevel::UpdateHiScoreText()
+{
+    m_strHiScore = "High Score<";
+	m_strHiScore += ToString(GetIntHighScore());
+	m_strHiScore += ">";
+
+}
+
+string CLevel::GetHighScore()
+{
+	UpdateHiScoreText();
+	return m_strHiScore;
+}
+
 
 void CLevel::UpdateLivesText()
 {
@@ -642,6 +670,9 @@ void CLevel::UpdateLivesText()
 ********************/
 int CLevel::GetPlayerScore()
 {
+	
+
+	
 	return m_iScore;
 }
 
@@ -649,6 +680,11 @@ int CLevel::GetPlayerScore()
 int CLevel::GetPlayerLives()
 {
 	return m_iPLayerLives;
+}
+
+int CLevel::GetIntHighScore()
+{
+	return m_iHiScore;
 }
 
 /***********************
@@ -676,6 +712,13 @@ void CLevel::DrawScore()
     kiY = static_cast<int>(10);// m_iHeight- 10;
 
 	TextOut(hdc, kiX, kiY, m_strLives.c_str(), static_cast<int>(m_strLives.size()));
+
+	UpdateHiScoreText();
+
+	kiX = m_iWidth - (10*(static_cast<int>(m_strHiScore.size())) + 10);
+    kiY = static_cast<int>(10);// m_iHeight- 10;
+
+	TextOut(hdc, kiX, kiY, m_strHiScore.c_str(), static_cast<int>(m_strHiScore.size()));
 
 }
 
@@ -768,25 +811,10 @@ void CLevel::AlienControl()
 			// Check each column for having an Alien below Lose threshold
 			if( ((*m_pAlienColumns)[i])->BelowLoseThreshold())
 			{
-
-				/*MessageBox( m_hWnd, "YOU LOSE", "LOSER", MB_OK);
-				CGame::GetInstance().SetLayout(0);
-				WaveReset();
-				m_fAlienSpeedOrig = 0.5f;
-				m_fAlienSpeed = m_fAlienSpeedOrig ;
-				delete m_pMysteryShip;
-				m_pMysteryShip =0;
-				m_fMysteryShipSpawnTimer = -10;
-				m_pProjectile->SetY(m_pPlayerShip->GetY() - 1);
-				m_pProjectile->SetX(m_pPlayerShip->GetX());
-				m_pPlayerShip->setFired(false);
-				m_pProjectile->setFired(false);*/
 				GameOver(true);
 				break;
 			}
 
-			// Fire
-			// Place FIRE STUFF HERE
 		}
 		m_fAlienLastMove = m_fTimeElapsed;
 	}
@@ -966,7 +994,7 @@ bool CLevel::AlienFire()
 			int iRandomNumber = rand() % 100;
 			if( iRandomNumber < m_fAlienFireFreq)
 			{
-				if(m_pAlienProjectiles->size() < fMaxAlienProjectile)
+				if(m_pAlienProjectiles->size() < m_fAlienFireFreq)
 				{
 					CAlienProjectile* Projectile = new CAlienProjectile;
 					
@@ -1017,9 +1045,19 @@ bool CLevel::IsIntersection(const TRectangle& _krRect1, const TRectangle& _krRec
 ********************/
 bool CLevel::GameOver(bool _bGameOver)
 {
+	
 	if(_bGameOver)
 	{
-		MessageBox( m_hWnd, "YOU LOSE", "LOSER", MB_OK);
+		if(m_iScore > m_iHiScore)
+		{
+			MessageBox( m_hWnd, "You Broke the High Score", "Winner", MB_OK);
+			m_iHiScore = m_iScore;
+		}
+		else
+		{
+			MessageBox( m_hWnd, "YOU LOSE", "LOSER", MB_OK);
+		}
+		
 		CGame::GetInstance().SetLayout(0);
 		WaveReset();
 		m_fAlienSpeedOrig = 0.5f;
@@ -1032,6 +1070,21 @@ bool CLevel::GameOver(bool _bGameOver)
 		m_pPlayerShip->setFired(false);
 		m_pProjectile->setFired(false);
 		m_iPLayerLives = 3;
+		m_iScore = 0;
+		respawn = respawnTime +1;
+		for(unsigned int i = 0; i < m_pBarriers->size(); i++)
+		{
+			(*m_pBarriers)[i]->ResetHealth();
+		}
+
+		while(!(m_pAlienProjectiles->empty()))
+		{
+			delete m_pAlienProjectiles->back();
+			m_pAlienProjectiles->back() = 0;
+			m_pAlienProjectiles->pop_back();
+		}
+
+
 		return true;
 	}
 	return false;

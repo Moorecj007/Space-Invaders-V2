@@ -132,6 +132,7 @@ void CGame::Process(float _fDeltaTick)
 	{
 	case 0:
 		{
+			m_pMenu->SetHiScore(GetHighScore());
 			m_pMenu->Process(_fDeltaTick);
 		}
 		break;
@@ -260,3 +261,9 @@ int CGame::GetLayout()
 {
 	return m_iLayout;
 }
+
+string CGame::GetHighScore()
+{
+	return m_pLevel->GetHighScore();
+}
+

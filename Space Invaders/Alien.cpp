@@ -47,21 +47,21 @@ bool CAlien::Initialise(int _iType)
 		{
 			m_iMaskID = IDB_MASKA_ALIEN1;
 			m_iSpriteID = IDB_SPRITEA_ALIEN1;
-			m_iPointValue = 100;
+			m_iPointValue = 10;
 		}
 		break;
 	case (2):
 		{
 			m_iMaskID = IDB_MASKA_ALIEN2;
 			m_iSpriteID = IDB_SPRITEA_ALIEN2;
-			m_iPointValue = 200;
+			m_iPointValue = 20;
 		}
 		break;
 	case (3):
 		{
 			m_iMaskID = IDB_MASKA_ALIEN3;
 			m_iSpriteID = IDB_SPRITEA_ALIEN3;
-			m_iPointValue = 400;
+			m_iPointValue = 40;
 		}
 		break;
 	case (4):
