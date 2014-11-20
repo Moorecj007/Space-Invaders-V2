@@ -50,8 +50,9 @@ bool CBarrier::Initialise(float _fX, float _fY)
 
 	VALIDATE(CEntity::Initialise(m_iSpriteID, m_iMaskID, m_iNumFrames));
 
-	CEntity::SetX(_fX);
-	CEntity::SetY(_fY);
+	CEntity::m_pSprite->SetFrame(5);
+	SetX(_fX);
+	SetY(_fY);
 
 	return true;
 }

@@ -151,12 +151,6 @@
     <None Include="Assets\Sprite_Barrier.bmp" />
     <None Include="Assets\Sprite_PlayerShip.bmp" />
     <None Include="Assets\Sprite_Projectile.bmp" />
-    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 1.bmp" />
-    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 2.bmp" />
-    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 3.bmp" />
-    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 4.bmp" />
-    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 5.bmp" />
-    <None Include="D:\Users\Callan.Moore\Desktop\Barrier Phase 6.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

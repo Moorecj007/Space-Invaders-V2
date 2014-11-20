@@ -45,6 +45,14 @@ CLevel::CLevel()
 	m_fStartY = 200;
 	m_iXGap = 15;
 	m_fColumnWidth = 35;
+
+	// Barrier Setup
+	m_pBarriers = new vector<CBarrier*>;
+	m_iNumBarriers = 8;
+	m_iBarrierPairGap = 0;
+	m_iBarrierBetweenPairGap = 80;
+	m_fBarrierStartX = 95;
+	m_fBarrierStartY = 600;
 }
 
 /***********************
@@ -113,6 +121,27 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 	m_fMysteryShipSpeed = 0.1f;
 	m_fMysteryShipSpawnTimer = -10;
 
+	// Barrier Setup
+	fCurrentX = m_fBarrierStartX;
+	fCurrentY = m_fBarrierStartY;
+	CBarrier* m_pTempBarrier = 0;
+
+	for( int i = 0; i < m_iNumBarriers; i++)
+	{
+		m_pTempBarrier = new CBarrier;
+		VALIDATE(m_pTempBarrier->Initialise(fCurrentX, fCurrentY));
+		m_pBarriers->push_back(m_pTempBarrier);
+
+		if(i % 2 == 0)
+		{
+			fCurrentX += (m_iBarrierPairGap + m_pTempBarrier->GetWidth());
+		}
+		else
+		{
+			fCurrentX += (m_iBarrierBetweenPairGap + m_pTempBarrier->GetWidth());
+		}
+	}
+
 	return true;
 }
 
@@ -128,9 +157,17 @@ void CLevel::Draw()
 	m_pPlayerShip->Draw();
 
 	m_pPlayerShip->Draw();
+
+	// Draw all the Alien Columns
 	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
 	{
 		((*m_pAlienColumns)[i])->Draw();
+	}
+
+	// Draw all the Barriers
+	for( unsigned int i = 0; i < m_pBarriers->size(); i++)
+	{
+		((*m_pBarriers)[i])->Draw();
 	}
 
 	//DrawScore();
@@ -163,6 +200,12 @@ void CLevel::Process(float _fDeltaTick)
 	for( unsigned int i = 0; i < m_pAlienColumns->size(); i++)
 	{
 		((*m_pAlienColumns)[i])->Process(_fDeltaTick);
+	}
+
+	// Process all the Barriers
+	for( unsigned int i = 0; i < m_pBarriers->size(); i++)
+	{
+		((*m_pBarriers)[i])->Process(_fDeltaTick);
 	}
 		
 	if(m_pPlayerShip->Fired()) 

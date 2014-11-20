@@ -33,6 +33,7 @@
 #include "PlayerProjectile.h"
 #include "AlienColumn.h"
 #include "MysteryShip.h"
+#include "Barrier.h"
 
 #include "Clock.h"
 
@@ -91,6 +92,7 @@ protected:
 	CPlayerProjectile* m_pProjectile;
 	vector<CAlienColumn*>* m_pAlienColumns;
 	CMysteryShip* m_pMysteryShip;
+	vector<CBarrier*>* m_pBarriers;
 	
 	float m_fPlayerShipSpeed;
 	float m_fProjectileSpeed;
@@ -116,6 +118,12 @@ protected:
 	float m_fStartY;
 	int m_iXGap;
 	float m_fColumnWidth;
+
+	int m_iNumBarriers;
+	int m_iBarrierPairGap;
+	int m_iBarrierBetweenPairGap;
+	float m_fBarrierStartX;
+	float m_fBarrierStartY;
 
 };
 
