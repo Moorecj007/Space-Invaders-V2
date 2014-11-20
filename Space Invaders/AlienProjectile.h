@@ -14,9 +14,9 @@
 
 #pragma once
 
-#if !defined(__PLAYERPROJECTILE_H__)
+#if !defined(__ALIENPROJECTILE_H__)
 
-#define __PLAYERPROJECTILE_H__
+#define __ALIENPROJECTILE_H__
 // Library Includes
 
 // Local Includes
@@ -25,51 +25,33 @@
 #include "resource.h"
 #include "utilities.h"
 
-// Types
-
-// Constants
-
-// Prototypes
-class CPlayerProjectile : public CEntity
+class CAlienProjectile :  public CEntity
 {
-	// Member Functions
 public:
-	
+	CAlienProjectile(void);
+	virtual ~CAlienProjectile(void);
 
-	// Singleton Methods
-	static CPlayerProjectile& GetInstance();
-	static void DestroyInstance();
-	
-	virtual ~CPlayerProjectile(void);
 	virtual bool Initialise(float _fPosX, float _fPosY, float _fVelocityY);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
 
 	float GetVelocity() const;
     void SetVelocity(float _fY);
-		
-	bool Fired();
-	void setFired(bool _bFired);
-	
-private:
-	CPlayerProjectile(void);
-	CPlayerProjectile(const CPlayerProjectile& _kr);
-	CPlayerProjectile& operator= (const CPlayerProjectile& _kr);
 
-	// Member Variables
+private:
+	
+	CAlienProjectile(const CAlienProjectile& _kr);
+	CAlienProjectile& operator= (const CAlienProjectile& _kr);
+
 protected:
 	float m_fVelocity;
 	bool m_bFired;
 
 	int m_iNumFrames;
 
-	//float m_fTimeElapsed;
-	//float m_fLastMove;
-
-	// Singleton Instance
-	static CPlayerProjectile* s_pProjectile;
-
+	float m_fTimeElapsed;
+	float m_fLastMove;
 
 };
 
-#endif //__PLAYERPROJECTILE_H__
+#endif //__ALIENPROJECTILE_H__

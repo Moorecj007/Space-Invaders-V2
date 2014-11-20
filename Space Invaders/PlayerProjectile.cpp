@@ -20,21 +20,21 @@ CPlayerProjectile* CPlayerProjectile::s_pProjectile = 0;
 
 
 /***********************
-* CGame: Contructor, also initialises member variables to 0
+* CPlayerProjectile: Contructor, also initialises member variables to 0
 * @author: Jc Fowles
 * @return: void
 ********************/
 CPlayerProjectile::CPlayerProjectile(void) 
 {
 	m_fVelocity = (0.0f);
-	m_fTimeElapsed = 0;
-	m_fLastMove = 0;
+	//m_fTimeElapsed = 0;
+	//m_fLastMove = 0;
 	m_bFired = false;
 	m_iNumFrames = 1;
 }
 
 /***********************
-* CPlayerShip: destructor, deletes the player projectile
+* ~CPlayerProjectile: destructor, deletes the player projectile
 * @author: Jc Fowles
 * @return: void
 ********************/

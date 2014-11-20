@@ -79,6 +79,7 @@
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="AlienColumn.cpp" />
+    <ClCompile Include="AlienProjectile.cpp" />
     <ClCompile Include="Backbuffer.cpp" />
     <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="Clock.cpp" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <ClInclude Include="Alien.h" />
     <ClInclude Include="AlienColumn.h" />
+    <ClInclude Include="AlienProjectile.h" />
     <ClInclude Include="Backbuffer.h" />
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="Clock.h" />

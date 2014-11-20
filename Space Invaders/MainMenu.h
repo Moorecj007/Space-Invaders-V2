@@ -19,9 +19,12 @@
 #if !defined(__MAINMENU_H__)
 #define __MAINMENU_H__
 
-// Library Includes
-#include "Level.h"
 
+// Library Includes
+#include <string>
+#include <locale>
+#include "Level.h"
+#include "Utilities.h"
 
 
 
@@ -45,6 +48,8 @@ public:
     virtual void Process(float _fDeltaTick);
 	bool ShipProjectileCollision();
 
+	void DrawText();
+
 	void PlayerInput();
    // CPaddle* GetPaddle() const;
 
@@ -65,6 +70,10 @@ protected:
 
 	CPlayerShip* m_pPlayerShip;
 	CPlayerProjectile* m_pProjectile;
+
+	std::string m_strMove;
+	std::string m_strShoot;
+
 
 private:
 	int m_iWidth;

@@ -21,6 +21,9 @@ CMainMenu::CMainMenu(void)
 	m_iWidth = 0;
 	m_iHeight = 0;
 	m_pPlayerShip = 0;
+
+	m_strMove = "Move: <- and -> ";
+	m_strShoot = "Shoot: SpaceBar";
 }
 
 
@@ -74,6 +77,7 @@ void CMainMenu::Draw()
 {
 	m_pProjectile->Draw();
 	m_pPlayerShip->Draw();
+	DrawText();
 }
 
 /***********************
@@ -93,14 +97,7 @@ void CMainMenu::Process(float _fDeltaTick)
 	}
 	
 	m_pPlayerShip->Process(_fDeltaTick);
-
-	/*ShipProjectileCollision();
-
-	if(m_pPlayerShip->Fired()) 
-	{
-		m_pProjectile->Process(_fDeltaTick);
-	}*/
-
+	
 	if(ShipProjectileCollision())
 	{
 		CGame::GetInstance().SetLayout(1);
@@ -196,4 +193,31 @@ bool CMainMenu::ShipProjectileCollision()
 	}
 	
 	return false;
+}
+
+
+/***********************
+* DrawScore: Draws the score to the buffer
+* @author: Jc Fowles
+* @return: void
+********************/
+void CMainMenu::DrawText()
+{
+	 HDC hdc = CGame::GetInstance().GetBackBuffer()->GetBFDC();
+	
+	SetTextColor(hdc, RGB(255,0,0));
+	SetBkColor(hdc, RGB(0,0,0));
+	
+	int kiX = 10;
+    int kiY = m_iHeight- 50;
+   			
+	TextOut(hdc, kiX, kiY, m_strMove.c_str(), static_cast<int>(m_strMove.size()));
+
+	SetTextColor(hdc, RGB(255,0,0));
+	SetBkColor(hdc, RGB(0,0,0));
+	
+	kiX = m_iWidth - (9*(static_cast<int>(m_strShoot.size())));
+    kiY = m_iHeight - 50;
+
+	TextOut(hdc, kiX, kiY ,m_strShoot.c_str(), static_cast<int>(m_strShoot.size()));
 }
