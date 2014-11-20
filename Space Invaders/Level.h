@@ -68,17 +68,34 @@ public:
 	void PlayerInput();
 	void WaveReset();
 
+<<<<<<< HEAD
 	// Getters
 	CPlayerShip* GetPlayerShip() const;
 	CPlayerProjectile* GetPlayerProjectile() const;
 	int GetPlayerScore();
 	int GetPlayerLives();
 	int GetIntHighScore();
+=======
+
+	void SetPlayerProjSpeed(float _fSpeed);
+	void SetAlienProjSpeed(float _fSpeed);
+	void SetPlayerMoveSpeed(float _fSpeed);
+	void SetAlienMoveSpeed(float _fSpeed);
+	
+>>>>>>> origin/Fowles
 	float GetPlayerProjSpeed();
 	float GetAlienProjSpeed();
 	float GetPlayerMoveSpeed();
 	float GetAlienMoveSpeed();
+<<<<<<< HEAD
 	string GetHighScore();
+=======
+
+protected:
+	//void ProcessCheckForWin();
+	//void DrawScore();
+	//void UpdateScoreText();
+>>>>>>> origin/Fowles
 
 	// Setters
 	void SetPlayerProjSpeed(float _fSpeed);
@@ -145,6 +162,28 @@ protected:
 	string m_strScore;
 	string m_strLives;
 	string m_strHiScore;
+<<<<<<< HEAD
+=======
+	//WCHAR* m_strScore;
+
+	HWND m_hWnd;
+
+	int m_iNumAlienColumns;
+	float m_fStartX;
+	float m_fStartY;
+	int m_iXGap;
+	float m_fColumnWidth;
+
+	int m_iNumBarriers;
+	int m_iBarrierPairGap;
+	int m_iBarrierBetweenPairGap;
+	float m_fBarrierStartX;
+	float m_fBarrierStartY;
+
+
+	
+
+>>>>>>> origin/Fowles
 };
 
 #endif // __LEVEL_H__

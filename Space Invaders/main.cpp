@@ -22,6 +22,7 @@
 #include <time.h>
 #include <vld.h>
 
+
 //Local Includes
 #include "Game.h"
 #include "Clock.h"
@@ -35,37 +36,138 @@ HINSTANCE g_hInstance;
 
 int g_iCmdshow;
 
-
+using namespace std;
 
 BOOL CALLBACK DialogProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	CGame& rGame = CGame::GetInstance();
+			/*string strShipProjSpeed = ToString(rGame.GetLevel()->GetPlayerProjSpeed());
+
+			SetDlgItemTextA(hDlg, IDC_SHIP_PROJ, strShipProjSpeed.c_str() );
+			
+			string strAlienProjSpeed = ToString(rGame.GetLevel()->GetAlienProjSpeed());
+			SetDlgItemTextA(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str() );
+
+			string strAlienSpeed = ToString(rGame.GetLevel()->GetAlienMoveSpeed());
+			SetDlgItemTextA(hDlg, IDC_ALIEN_SPEED, strAlienSpeed.c_str() );
+
+			string strShipSpeed = ToString(rGame.GetLevel()->GetPlayerMoveSpeed());
+			SetDlgItemTextA(hDlg, IDC_ALIEN_SPEED, strShipSpeed.c_str() );*/
+
 	switch(uMsg)
 	{
-	
+		
+	case WM_INITDIALOG:
+		{
+			string strShipProjSpeed = ToString(rGame.GetLevel()->GetPlayerProjSpeed());
+
+			SetDlgItemTextA(hDlg, IDC_SHIP_PROJ, strShipProjSpeed.c_str() );
+			
+			string strAlienProjSpeed = ToString(rGame.GetLevel()->GetAlienProjSpeed());
+			SetDlgItemTextA(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str() );
+
+			string strAlienSpeed = ToString(rGame.GetLevel()->GetAlienMoveSpeed());
+			SetDlgItemTextA(hDlg, IDC_ALIEN_SPEED, strAlienSpeed.c_str() );
+
+			string strShipSpeed = ToString(rGame.GetLevel()->GetPlayerMoveSpeed());
+			SetDlgItemTextA(hDlg, IDC_SHIP_SPEED, strShipSpeed.c_str() );
+		}
+		break;
 	case WM_COMMAND :
 		switch(LOWORD(wParam))
 		{
-		case IDC_CANCEL:
+		
+		case IDC_APPLY:
 			{
 				SendMessage(hDlg, WM_DESTROY, 0,0);
 			}
 			break;
-		case IDC_APPLY:
+		case IDC_SHIP_PROJ_INC:
 			{
-				if(MessageBox(hDlg, TEXT("Apply changes"), TEXT("Apply"),MB_ICONQUESTION | MB_YESNO) == IDYES)
+				if(rGame.GetLevel()->GetPlayerProjSpeed() <= 2000.0f)
 				{
-					//make changes here
-					SendMessage(hDlg, WM_DESTROY, 0,0);
+					rGame.GetLevel()->SetPlayerProjSpeed(rGame.GetLevel()->GetPlayerProjSpeed() + 200);
 				}
-				else
-				{
-					SendMessage(hDlg, WM_DESTROY, 0,0);
-				}
+				string strShipProjSpeed = ToString(rGame.GetLevel()->GetPlayerProjSpeed());
+				SetDlgItemTextA(hDlg, IDC_SHIP_PROJ, strShipProjSpeed.c_str() );
 			}
 			break;
+		case IDC_SHIP_PROJ_DEC:
+			{
+				if(rGame.GetLevel()->GetPlayerProjSpeed() >= 200.0f)
+				{
+					rGame.GetLevel()->SetPlayerProjSpeed(rGame.GetLevel()->GetPlayerProjSpeed() - 200);
+				}
+				string strShipProjSpeed = ToString(rGame.GetLevel()->GetPlayerProjSpeed());
+				SetDlgItemTextA(hDlg, IDC_SHIP_PROJ, strShipProjSpeed.c_str() );
+			}
+			break;
+		case IDC_ALIEN_PROJ_INC:
+			{
+				if(rGame.GetLevel()->GetAlienProjSpeed() <= 2000.0f)
+				{
+					rGame.GetLevel()->SetAlienProjSpeed(rGame.GetLevel()->GetAlienProjSpeed() + 200);
+				}
+				string strAlienProjSpeed = ToString(rGame.GetLevel()->GetAlienProjSpeed());
+				SetDlgItemTextA(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str() );
+			}
+			break;
+		case IDC_ALIEN_PROJ_DEC:
+			{
+				if(rGame.GetLevel()->GetAlienProjSpeed() >= 200.0f)
+				{
+					rGame.GetLevel()->SetAlienProjSpeed(rGame.GetLevel()->GetAlienProjSpeed() - 200);
+				}
+				string strAlienProjSpeed = ToString(rGame.GetLevel()->GetAlienProjSpeed());
+				SetDlgItemTextA(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str() );
+			}
+			break;
+
+
+		case IDC_SHIP_SPEED_INC:
+			{
+				if(rGame.GetLevel()->GetPlayerMoveSpeed() <= 1500.0f)
+				{
+					rGame.GetLevel()->SetPlayerMoveSpeed(rGame.GetLevel()->GetPlayerMoveSpeed() + 50);
+				}
+				string strShipSpeed = ToString(rGame.GetLevel()->GetPlayerMoveSpeed());
+				SetDlgItemTextA(hDlg, IDC_SHIP_SPEED, strShipSpeed.c_str() );
+			}
+			break;
+		case IDC_SHIP_SPEED_DEC:
+			{
+				if(rGame.GetLevel()->GetPlayerMoveSpeed() >= 50.0f)
+				{
+					rGame.GetLevel()->SetPlayerMoveSpeed(rGame.GetLevel()->GetPlayerMoveSpeed() - 50);
+				}
+				string strShipSpeed = ToString(rGame.GetLevel()->GetPlayerMoveSpeed());
+				SetDlgItemTextA(hDlg, IDC_SHIP_SPEED, strShipSpeed.c_str() );
+			}
+			break;
+		case IDC_ALIEN_SPEED_INC:
+			{
+				//i/*f(rGame.GetLevel()->GetAlienProjSpeed() <= 0.00005)
+				//{
+				//	rGame.GetLevel()->SetAlienProjSpeed(rGame.GetLevel()->GetAlienProjSpeed() - 0.005);
+				//}
+				//string strAlienProjSpeed = ToString(rGame.GetLevel()->GetAlienProjSpeed());
+				//SetDlgItemText(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str );*/
+			}
+			break;
+		case IDC_ALIEN_SPEED_DEC:
+			{
+				/*if(rGame.GetLevel()->GetAlienProjSpeed() != 200.0f)
+				{
+					rGame.GetLevel()->SetAlienProjSpeed(rGame.GetLevel()->GetAlienProjSpeed() - 200);
+				}
+				string strAlienProjSpeed = ToString(rGame.GetLevel()->GetAlienProjSpeed());
+				SetDlgItemText(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str );*/
+			}
+			break;
+
 		}
 		break;
-			
+	
 		case WM_CLOSE:
 		{
 			SendMessage(hDlg, WM_DESTROY, 0,0);
