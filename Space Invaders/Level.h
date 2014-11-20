@@ -68,7 +68,6 @@ public:
 	void PlayerInput();
 	void WaveReset();
 
-
 	// Getters
 	CPlayerShip* GetPlayerShip() const;
 	CPlayerProjectile* GetPlayerProjectile() const;
@@ -87,8 +86,6 @@ public:
 	void SetPlayerMoveSpeed(float _fSpeed);
 	void SetAlienMoveSpeed(float _fSpeed);
 	
-protected:
-		
 private:
 	// Disallowing copies
 	CLevel(const CLevel& _kr);

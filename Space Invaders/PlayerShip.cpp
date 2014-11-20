@@ -29,7 +29,7 @@ CPlayerShip::CPlayerShip(void)
 }
 
 /***********************
-* CPlayerShip: destructor, deletes the playerShip
+* CPlayerShip: Destructor, deletes the player Ship
 * @author: Jc Fowles
 * @return: void
 ********************/
@@ -40,7 +40,7 @@ CPlayerShip::~CPlayerShip(void)
 /***********************
 * Initialise: Initialises the playerShip and it's member variables
 * @author: Jc Fowles
-* @return: bool : check if it initialesed properly
+* @return: bool : true if successful
 ********************/
 bool CPlayerShip::Initialise()
 {
@@ -122,6 +122,11 @@ void CPlayerShip::SetDestroyed(bool _bDestroy)
 	m_bDestroy = _bDestroy;
 }
 
+/***********************
+* GetDestroyed: Retrieves whether the projectile to be destroyed or not
+* @author: Jc Fowles
+* @return: bool: True if it is to be destroyed
+********************/
 bool CPlayerShip::GetDestroyed()
 {
 	return m_bDestroy;

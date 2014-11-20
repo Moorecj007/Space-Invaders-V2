@@ -18,7 +18,6 @@
 // Static Variables
 CPlayerProjectile* CPlayerProjectile::s_pProjectile = 0;
 
-
 /***********************
 * CPlayerProjectile: Contructor, also initialises member variables to 0
 * @author: Jc Fowles
@@ -27,14 +26,12 @@ CPlayerProjectile* CPlayerProjectile::s_pProjectile = 0;
 CPlayerProjectile::CPlayerProjectile(void) 
 {
 	m_fVelocity = (0.0f);
-	//m_fTimeElapsed = 0;
-	//m_fLastMove = 0;
 	m_bFired = false;
 	m_iNumFrames = 1;
 }
 
 /***********************
-* ~CPlayerProjectile: destructor, deletes the player projectile
+* ~CPlayerProjectile: Destructor, deletes the player projectile
 * @author: Jc Fowles
 * @return: void
 ********************/
@@ -46,15 +43,17 @@ CPlayerProjectile::~CPlayerProjectile(void)
 /***********************
 * Initialise: Initialises the projectile and it's member variables
 * @author: Jc Fowles
-* @return: bool : check if it initialised properly
+* @return: bool : True if successful
 ********************/
 bool CPlayerProjectile::Initialise(float _fPosX, float _fPosY, float _fVelocity)
 {
 	VALIDATE(CEntity::Initialise(IDB_SPRITE_PROJECTILE, IDB_MASK_PROJECTILE, m_iNumFrames));
 
+	// Starting coordinates
 	m_fX = _fPosX;
     m_fY = _fPosY;
 
+	// Starting velocity
     m_fVelocity = _fVelocity;
 
 	return (true);
@@ -69,6 +68,7 @@ void CPlayerProjectile::Draw()
 {
 	if(m_bFired)
 	{
+		// Only draw if it has been fired
 		CEntity::Draw();
 	}
 }
@@ -83,7 +83,6 @@ void CPlayerProjectile::Process(float _fDeltaTick)
 {
 	m_fY += m_fVelocity * _fDeltaTick;
 	CEntity::Process(_fDeltaTick);
-	
 }
 
 /***********************
@@ -101,9 +100,9 @@ CPlayerProjectile& CPlayerProjectile::GetInstance()
 }
 
 /***********************
-* GetInstance: Returns the singleton instance of the projectile, if it doesnt exist creates it.
+* DestroyInstance: Destroys the singleton instance of the player projectile
 * @author: JC Fowles
-* @return: CPlayerProjectile&: The current instance of the player projectile
+* @return: void
 ********************/
 void CPlayerProjectile::DestroyInstance()
 {
@@ -112,8 +111,8 @@ void CPlayerProjectile::DestroyInstance()
 }
 
 /***********************
-* Fired: checks to see if the player has fired the projectile 
-* @author: Jc Fowels
+* Fired: Checks to see if the player has fired the projectile 
+* @author: Jc Fowless
 * @return: bool: true if fired
 ********************/
 bool CPlayerProjectile::Fired()
@@ -134,7 +133,7 @@ void CPlayerProjectile::setFired(bool _bFired)
 /***********************
 * GetVelocity: Gets the player ships projectile speed
 * @author: Jc Fowles
-* @return: float: the speed the projectile moves
+* @return: float: The speed the projectile moves
 ********************/
 float CPlayerProjectile::GetVelocity() const
 {

@@ -44,14 +44,17 @@ CMysteryShip::~CMysteryShip(void)
 ********************/
 bool CMysteryShip::Initialise()
 {
+	// Selects the Mask and Sprite Resource IDs
 	m_iMaskID = IDB_MASKA_MYSSHIP;
 	m_iSpriteID = IDB_SPRITEA_MYSSHIP;
 
+	// Generate the point value to award player if destroyed
 	int iPointMultiplier = (rand() % 6);
 	m_iPointValue = 50 * iPointMultiplier;
 
 	VALIDATE(CEntity::Initialise(m_iSpriteID, m_iMaskID, m_iNumFrames));
 
+	// Set starting coordinates slightly off the screen
 	CEntity::SetX(-1*GetHeight());
 	CEntity::SetY(90);
 	return (true);

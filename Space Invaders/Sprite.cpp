@@ -49,11 +49,6 @@ CSprite::~CSprite()
 	DeleteObject(m_hSprite);
 	DeleteObject(m_hMask);
 	--s_iRefCount;
-	/*if (s_iRefCount == 0)
-	{
-		DeleteDC(s_hSharedSpriteDC);
-		s_hSharedSpriteDC = 0;
-	}*/
 }
 
 /***********************
@@ -62,21 +57,28 @@ CSprite::~CSprite()
 * @author: Callan Moore
 * @parameter: _iSpriteResourceID: ID as an integer value used to locate the Sprite Image
 * @parameter: _iMaskResourceID:	ID as an integer value used to locate the Sprite Mask
-* @parameter: _iMaxFrames: The The maximum number of frames for the sprite to have
+* @parameter: _iNumFrames: The number of frames that the sprite has
 * @return: bool: always returns true
 ********************/
 bool CSprite::Initialise(int _iSpriteResourceID, int _iMaskResourceID, int _iNumFrames)
 {
 	m_iNumFrames = _iNumFrames;
 	HINSTANCE hInstance = CGame::GetInstance().GetAppInstance();
+
+	// Creates a Shared Sprite if one does not exist
 	if (!s_hSharedSpriteDC)
 	{
 		s_hSharedSpriteDC = CreateCompatibleDC(NULL);
 	}
+
+	// Loads the Sprites sprite ID
 	m_hSprite = LoadBitmap(hInstance, MAKEINTRESOURCE(_iSpriteResourceID));
 	VALIDATE(m_hSprite);
+
+	// Loads the Sprites mask ID
 	m_hMask = LoadBitmap(hInstance, MAKEINTRESOURCE(_iMaskResourceID));
 	VALIDATE(m_hMask);
+
 	GetObject(m_hSprite, sizeof(BITMAP), &m_bitmapSprite);
 	GetObject(m_hMask, sizeof(BITMAP), &m_bitmapMask);
 	return (true);
@@ -94,6 +96,7 @@ void CSprite::Draw()
 	int iH = GetHeight();
 	int iX = m_iX - (iW / 2);
 	int iY = m_iY - (iH / 2);
+
 	CBackBuffer* pBackBuffer = CGame::GetInstance().GetBackBuffer();
 	HGDIOBJ hOldObj = SelectObject(s_hSharedSpriteDC, m_hMask);
 	BitBlt(pBackBuffer->GetBFDC(), iX, iY, iW, iH, s_hSharedSpriteDC, (m_iFrame * iW), 0, SRCAND);
