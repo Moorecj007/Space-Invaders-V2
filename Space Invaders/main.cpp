@@ -164,7 +164,6 @@ BOOL CALLBACK DialogProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				SetDlgItemText(hDlg, IDC_ALIEN_PROJ, strAlienProjSpeed.c_str );*/
 			}
 			break;
-
 		}
 		break;
 	

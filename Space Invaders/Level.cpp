@@ -25,7 +25,7 @@
 CLevel::CLevel()
 {
 	m_fPlayerShipSpeed = 250.0f;
-	m_fProjectileSpeed = 1500.0f;
+	m_fProjectileSpeed = 750.0f;
 	m_fAlienProjectileSpeed = 250.0f;
 	m_fAlienSpeed = 0.5f;
 	m_fAlienSpeedOrig = 0.5f;
@@ -59,7 +59,6 @@ CLevel::CLevel()
 	// Barrier Setup
 	m_pBarriers = new vector<CBarrier*>;
 	m_iNumBarriers = 4;
-	//m_iBarrierPairGap = 0;
 	m_iBarrierBetweenPairGap = 102;
 	m_fBarrierStartX = 151;
 	m_fBarrierStartY = 800;
@@ -166,7 +165,7 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 		m_pAlienColumns->push_back(pTempAlienColumn);
 
 		fCurrentX += (m_fColumnWidth + m_iXGap);
-		m_fAlienLastFired.push_back(0);
+		m_fAlienLastFired = 0;
 	}
 
 	// Mystery Ship Variable initialisations
@@ -187,14 +186,8 @@ bool CLevel::Initialise(int _iWidth, int _iHeight, HWND _hWnd)
 		VALIDATE(m_pTempBarrier->Initialise(fCurrentX, fCurrentY));
 		m_pBarriers->push_back(m_pTempBarrier);
 
-		/*if(i % 2 == 0)
-		{
-			fCurrentX += (m_iBarrierPairGap + m_pTempBarrier->GetWidth());
-		}
-		else
-		{*/
-			fCurrentX += (m_iBarrierBetweenPairGap + m_pTempBarrier->GetWidth());
-		//}
+		fCurrentX += (m_iBarrierBetweenPairGap + m_pTempBarrier->GetWidth());
+
 	}
 
 	return true;
@@ -342,7 +335,6 @@ void CLevel::Process(float _fDeltaTick)
 		{
 			(*iterCurrent)->Process(_fDeltaTick);
 		}
-		//iterCurrent++;
 		
 		iterCurrent++;
 	
@@ -360,7 +352,7 @@ void CLevel::Process(float _fDeltaTick)
 		//respawn++;
 	}
 
-	if(m_iExtraLife >= 100)
+	if(m_iExtraLife >= 10000)
 	{
 		m_iPLayerLives += 1;
 		m_iExtraLife = 0;
@@ -667,7 +659,7 @@ void CLevel::UpdatePlayerScore(int _iScore)
 }
 
 /***********************
-* UpdateScoreText: Updates the text that contains the playres score
+* UpdateScoreText: Updates the text that contains the players score
 * @author: Jc Fowles
 * @parameter: _fScore: amount to update score by
 * @return: void
@@ -680,27 +672,38 @@ void CLevel::UpdateScoreText()
 
 }
 
+/***********************
+* UpdateHiScoreText: Updates the text that contains the high score
+* @author: Jc Fowles
+* @return: void
+********************/
 void CLevel::UpdateHiScoreText()
 {
     m_strHiScore = "High Score<";
 	m_strHiScore += ToString(GetIntHighScore());
 	m_strHiScore += ">";
-
 }
 
+/***********************
+* GetHighScore: Retrieves the Hi Score
+* @author: Jc Fowles
+* @return: string: The current hi score
+********************/
 string CLevel::GetHighScore()
 {
 	UpdateHiScoreText();
 	return m_strHiScore;
 }
 
-
+/***********************
+* UpdateLivesText: update the Life count text
+* @author: Jc Fowles
+* @return: void
+********************/
 void CLevel::UpdateLivesText()
 {
     m_strLives = "Lives: ";
 	m_strLives += ToString(GetPlayerLives());
-	//m_strLives += ">";
-
 }
 
 /***********************
@@ -716,12 +719,21 @@ int CLevel::GetPlayerScore()
 	return m_iScore;
 }
 
-
+/***********************
+* GetPlayerLives: Retrieves the Players life count
+* @author: Jc Fowles
+* @return: float: The players life count
+********************/
 int CLevel::GetPlayerLives()
 {
 	return m_iPLayerLives;
 }
 
+/***********************
+* GetIntHighScore: Retrieve the Hi Score
+* @author: Jc Fowles
+* @return: int: The hi score
+********************/
 int CLevel::GetIntHighScore()
 {
 	return m_iHiScore;
@@ -1011,10 +1023,12 @@ void CLevel::WaveReset()
 		fCurrentX += (m_fColumnWidth + m_iXGap);
 	}
 	m_bAlienDirection = RIGHT;
-	m_fAlienSpeedOrig = m_fAlienSpeedOrig - (m_fAlienSpeedOrig/50);
+	m_fAlienSpeedOrig = m_fAlienSpeedOrig - (m_fAlienSpeedOrig/20);
 	m_fAlienSpeed = m_fAlienSpeedOrig;
 	m_fAlienFireFreqOrig += m_fAlienFireFreqOrig + 5;
 	m_fAlienFireFreq = m_fAlienFireFreqOrig;
+	fMaxAlienProjectile += 2;
+	m_iPLayerLives++;
 }
 
 /***********************
@@ -1024,7 +1038,7 @@ void CLevel::WaveReset()
 ********************/
 bool CLevel::AlienFire()
 {
-	if( (m_fTimeElapsed - m_fAlienLastFired[0]) > 1)
+	if( (m_fTimeElapsed - m_fAlienLastFired) > 1)
 	{
 		int iRandomCol = rand() % 11;
 		CAlienColumn* currentColumn = (*m_pAlienColumns)[iRandomCol];
@@ -1032,23 +1046,34 @@ bool CLevel::AlienFire()
 		if( currentColumn->IsAlive())
 		{
 			int iRandomNumber = rand() % 100;
-			if( iRandomNumber < m_fAlienFireFreq)
+			if( iRandomNumber <= m_fAlienFireFreq)
 			{
-				if(m_pAlienProjectiles->size() < m_fAlienFireFreq)
+				if(static_cast<float>(m_pAlienProjectiles->size()) < fMaxAlienProjectile)
 				{
 					CAlienProjectile* Projectile = new CAlienProjectile;
 					
 					CAlien* Alien = currentColumn->ReturnLowest();
 					float fX = Alien->GetX();
 					float fY = Alien->GetY();
-					VALIDATE(Projectile->Initialise(m_iWidth / 2.0f, m_iHeight / 2.0f,  m_fAlienProjectileSpeed));
+
+					// Random gen to see which Projectile type to spawn
+					int iRandomProjectile = rand() % 3;
+					if(iRandomProjectile == 1)
+					{
+						VALIDATE(Projectile->Initialise(m_iWidth / 2.0f, m_iHeight / 2.0f,  m_fAlienProjectileSpeed, 1));
+					}
+					else
+					{
+						VALIDATE(Projectile->Initialise(m_iWidth / 2.0f, m_iHeight / 2.0f,  m_fAlienProjectileSpeed / 2, 0));
+					}
+
 					Projectile->SetX(fX);
 					Projectile->SetY(fY);
 					m_pAlienProjectiles->push_back(Projectile);
 				}
 			}
 		}
-		m_fAlienLastFired[0] = m_fTimeElapsed;
+		m_fAlienLastFired = m_fTimeElapsed;
 	}
 	
 	return (true);
@@ -1130,8 +1155,6 @@ bool CLevel::GameOver(bool _bGameOver)
 	return false;
 }
 
-
-
 /***********************
 * SetPlayerProjSpeed: Sets the Players Ships Projectile speed
 * @author: Callan Moore
@@ -1175,9 +1198,6 @@ void CLevel::SetAlienMoveSpeed(float _fSpeed)
 {
 	m_fAlienSpeed = _fSpeed;
 }
-
-
-
 
 /***********************
 * GetPlayerProjSpeed: Retrieves the base player projectile speed

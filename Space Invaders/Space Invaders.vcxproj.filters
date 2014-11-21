@@ -129,13 +129,7 @@
     <None Include="Assets\Mask_Projectile.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Assets\MaskA_Alien1.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Assets\MaskA_Alien2.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\MaskA_Alien3.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Assets\MaskA_Bolt.bmp">
@@ -147,19 +141,10 @@
     <None Include="Assets\MaskA_MysShip.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Assets\Sprite_PlayerShip.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Assets\Sprite_Projectile.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Assets\SpriteA_Alien1.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\SpriteA_Alien2.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\SpriteA_Alien3.bmp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Assets\SpriteA_Bolt.bmp">
@@ -168,7 +153,22 @@
     <None Include="Assets\SpriteA_Cross.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Assets\MaskA_Alien1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\MaskA_Alien3.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\SpriteA_Alien2.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\SpriteA_Alien3.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Assets\SpriteA_MysShip.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Sprite_PlayerShip.bmp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -176,28 +176,7 @@
     <Image Include="MaskA_Alien1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="MaskA_Alien2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="MaskA_Alien3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Bolt.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_Cross.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="MaskA_MysShip.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Mask_PlayerShip.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Mask_Projectile.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SpriteA_Alien1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="SpriteA_Alien2.bmp">
@@ -216,9 +195,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Sprite_PlayerShip.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Sprite_Projectile.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Mask_Title.bmp">

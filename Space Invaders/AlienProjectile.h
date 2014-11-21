@@ -28,7 +28,7 @@ class CAlienProjectile :  public CEntity
 public:
 	CAlienProjectile(void);
 	virtual ~CAlienProjectile(void);
-	virtual bool Initialise(float _fPosX, float _fPosY, float _fVelocityY);
+	virtual bool Initialise(float _fPosX, float _fPosY, float _fVelocityY, int iType);
 	virtual void Draw();
 	virtual void Process(float _fDeltaTick);
 

@@ -105,7 +105,7 @@ protected:
 	CMysteryShip* m_pMysteryShip;
 	vector<CBarrier*>* m_pBarriers;
 	vector<CAlienProjectile*>* m_pAlienProjectiles;
-	vector<float> m_fAlienLastFired;
+	float m_fAlienLastFired;
 
 	unsigned int fMaxAlienProjectile;
 	

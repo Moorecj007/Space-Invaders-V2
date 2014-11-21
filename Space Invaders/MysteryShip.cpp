@@ -35,6 +35,7 @@ CMysteryShip::CMysteryShip(void)
 ********************/
 CMysteryShip::~CMysteryShip(void)
 {
+
 }
 
 /***********************

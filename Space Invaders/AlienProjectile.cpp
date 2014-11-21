@@ -36,11 +36,26 @@ CAlienProjectile::~CAlienProjectile(void)
 /***********************
 * Initialise: Initialises the projectile and it's member variables
 * @author: Jc Fowles
+* @parameter: _iType: Type of projectile you want as an integer
 * @return: bool : True if successful
 ********************/
-bool CAlienProjectile::Initialise(float _fPosX, float _fPosY, float _fVelocity)
+bool CAlienProjectile::Initialise(float _fPosX, float _fPosY, float _fVelocity, int _iType)
 {
-	VALIDATE(CEntity::Initialise(IDB_SPRITEA_BOLT , IDB_MASKA_BOLT, m_iNumFrames));
+	switch( _iType)
+	{
+	case (0):
+		{
+			VALIDATE(CEntity::Initialise(IDB_SPRITEA_CROSS , IDB_MASKA_CROSS, m_iNumFrames));
+		}
+		break;
+	case (1):
+		{
+			VALIDATE(CEntity::Initialise(IDB_SPRITEA_BOLT , IDB_MASKA_BOLT, m_iNumFrames));
+		}
+		break;
+	default: break;
+	}	// End Switch
+	
 
 	// Set Initial Positioning
 	m_fX = _fPosX;
